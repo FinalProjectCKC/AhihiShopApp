@@ -1,9 +1,6 @@
 
-
-
 import React from 'react';
-import { Button, Image, View, Text } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import { Button, Image, View, Text,SafeAreaView } from 'react-native';
 
 export default class Home extends React.Component {
   render() {
