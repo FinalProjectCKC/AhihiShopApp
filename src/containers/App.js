@@ -170,7 +170,7 @@ const RouteAdmin = {
 		},
 	},
   Order: {
-		screen: OrderContainer,
+		screen: NotificationContainer,
 		navigationOptions: {
 			tabBarLabel: "Đơn hàng",
 			tabBarIcon: ({ tintColor }) => (

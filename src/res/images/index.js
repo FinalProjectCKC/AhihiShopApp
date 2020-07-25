@@ -3,6 +3,7 @@ const Images = {
   anlao: require("./anlao.png"),
   annhon: require("./annhon.png"),
 
+  bg_login: require("./bg_login.jpg"),
   bg_bt_check_in: require("./bg_bt_check_in.png"),
   bg_bt_wfh: require("./bg_bt_wfh.png"),
   bg_bt_onsite: require("./bg_bt_onsite.png"),
