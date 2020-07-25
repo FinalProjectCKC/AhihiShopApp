@@ -58,6 +58,7 @@ const Images = {
 
   ic_info: require("./ic_BinhDinh.png"),
   ic_insight: require("./ic_insight.png"),
+  ic_insight_inactive: require("./ic_insight_inactive.png"),
   ic_inactive_home: require("./ic_inactive_home.png"),
   ic_inactive_user: require("./ic_inactive_user.png"),
 
