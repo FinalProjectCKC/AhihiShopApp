@@ -24,7 +24,8 @@ const Images = {
   ic_back: require("./arrow_left.png"),
   ic_back_white: require("./arrow_left_white.png"),
   ic_box_inactive: require("./ic_box_inactive.png"),
-
+  ic_bell: require("./ic_bell.png"),
+  
   ic_changpassword: require("./ic_changePassword.png"),
   ic_cancel: require("./ic_cancel.png"),
   ic_cloud: require("./cloud.png"),
@@ -112,6 +113,8 @@ const Images = {
   ic_xayDung: require("./ic_xayDung.png"),
 
   letter: require("./letter.png"),
-  logo: require("./logo.png"),
+  logo: require("./logo_Shop.png"),
+
+  shopping_cart: require("./shopping-cart.png"),
 };
 export default Images;
