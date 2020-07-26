@@ -3,10 +3,10 @@ export const POST_LOGIN_SUCCESS = 'POST_LOGIN_SUCCESS';
 export const POST_LOGIN_ERROR = 'POST_LOGIN_ERROR';
 export const POST_LOGOUT = 'POST_LOGOUT';
 
-export const loginAction = (user, password) => {
+export const loginAction = (input) => {
     return {
         type: POST_LOGIN,
-        data: { user, password }
+        data: input
     }
 }
 

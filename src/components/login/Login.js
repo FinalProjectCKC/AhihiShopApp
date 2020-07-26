@@ -9,11 +9,13 @@ import {
   TouchableOpacity,
   ScrollView,
   ImageBackground,
-  TouchableHighlight
+  TouchableHighlight,
+  Alert
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
+import { objectIsNull } from '@dungdang/react-native-basic/src/Functions';
 import { StyleSheet, Dimensions, StatusBar } from "react-native";
-import {isPhone, screen} from '../../config/settings'
+import { isPhone, screen } from '../../config/settings'
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Sizes } from "@dungdang/react-native-basic";
@@ -35,6 +37,19 @@ export default class Login extends React.Component {
       modalVisible: false,
       keyboardHidden: true,
     };
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.error !== prevProps.error && this.props.error !== null) {
+      Alert.alert(
+        "Lỗi",
+        this.props.error,
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+    }
+    if (this.props.loginData !== prevProps.loginData && this.props.error == null && this.props.loginData !== null) {
+      this.props.navigation.navigate('MyModal')
+    }
   }
   render() {
     return (
@@ -128,8 +143,14 @@ export default class Login extends React.Component {
 
             <TouchableHighlight
               underlayColor="transparent"
-              // onPress={() => this.onSummitPress()}
-              onPress={() => this.props.navigation.navigate('MyModal')}
+              onPress={() => {
+                let input = {
+                  username: this.state.username,
+                  password: this.state.password,
+                }
+                this.props.loginAction(input)
+              }}
+            // onPress={() => this.props.navigation.navigate('MyModal')}
             >
               <View style={styles.button}>
                 <Text style={styles.buttonTitle}>
@@ -194,63 +215,63 @@ const styles = StyleSheet.create({
     // backgroundColor: "#eee"
   },
   logo: {
-		width: isPhone ? Sizes.s340 : Sizes.s200,
-		height: isPhone ? Sizes.s340 : Sizes.s200,
-		resizeMode: "contain",
-		marginBottom: isPhone ? "5%" : "3%",
-	},
-	content: {
-		width: "100%",
-		height: "100%",
-		justifyContent: "space-evenly",
-		alignItems: "center",
-	},
-	title: {
-		color: "#FFFFFF",
-		fontSize: isPhone ? Sizes.h52 : Sizes.h48,
-		opacity: 1,
-	},
-	text: {
-		//fontFamily: 'Roboto',
-		fontWeight: "bold",
-		color: "#FFFFFF",
-		fontSize: Sizes.s40,
-		marginBottom: Sizes.s10,
-	},
-	loginForm: {
-		width: (screen.width * 3) / 4,
-		height: isPhone ? "40%" : "50%",
-	},
-	boxInput: {
-		width: "100%",
-		flexDirection: "row",
-		backgroundColor: "white",
-		borderRadius: Sizes.s10,
-		justifyContent: "space-around",
-		alignItems: "center",
-		marginTop: Sizes.s60,
-	},
-	input: {
-		height: isPhone ? Sizes.s200 : Sizes.s160,
-		justifyContent: "space-between",
-	},
+    width: isPhone ? Sizes.s340 : Sizes.s200,
+    height: isPhone ? Sizes.s340 : Sizes.s200,
+    resizeMode: "contain",
+    marginBottom: isPhone ? "5%" : "3%",
+  },
+  content: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  title: {
+    color: "#FFFFFF",
+    fontSize: isPhone ? Sizes.h52 : Sizes.h48,
+    opacity: 1,
+  },
+  text: {
+    //fontFamily: 'Roboto',
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    fontSize: Sizes.s40,
+    marginBottom: Sizes.s10,
+  },
+  loginForm: {
+    width: (screen.width * 3) / 4,
+    height: isPhone ? "40%" : "50%",
+  },
+  boxInput: {
+    width: "100%",
+    flexDirection: "row",
+    backgroundColor: "white",
+    borderRadius: Sizes.s10,
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginTop: Sizes.s60,
+  },
+  input: {
+    height: isPhone ? Sizes.s200 : Sizes.s160,
+    justifyContent: "space-between",
+  },
   button: {
-		height:  Sizes.s100,
-		backgroundColor: "rgba(145, 139, 138, 0.8)",
-		borderRadius: 30,
-		justifyContent: "center",
-		alignItems: "center",
-		marginBottom: Sizes.s20,
-	},
-	buttonTitle: {
-		color: "white",
-		fontSize: Sizes.h40,
+    height: Sizes.s100,
+    backgroundColor: "rgba(145, 139, 138, 0.8)",
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: Sizes.s20,
+  },
+  buttonTitle: {
+    color: "white",
+    fontSize: Sizes.h40,
   },
   remember: {
-		flexDirection: "row",
-		width: "100%",
-		alignItems: "center",
-		marginBottom: Sizes.s20,
-		marginTop: Sizes.s20,
-	},
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    marginBottom: Sizes.s20,
+    marginTop: Sizes.s20,
+  },
 });

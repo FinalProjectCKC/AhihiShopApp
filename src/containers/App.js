@@ -8,11 +8,10 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { userData } from "../config/settings";
 
-import Login from '../components/login/Login';
-
 import WelcomeScreen from '../components/welcomeScreen/WelcomeScreen';
 
 //User
+import LoginContainer from '../containers/login/LoginContainer';
 import HomeContainer from '../containers/home/HomeContainer';
 import ProfileContainer from '../containers/profile/ProfileContainer';
 import CartContainer from './cart/CartContainer';
@@ -218,7 +217,7 @@ const RootStack = createStackNavigator(
       screen: WelcomeScreen,
     },
     Login: {
-      screen: Login,
+      screen: LoginContainer,
     },
     MyModal: {
       screen: TAB,
