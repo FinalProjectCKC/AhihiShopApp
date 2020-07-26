@@ -77,9 +77,10 @@ export default class Login extends React.Component {
     return (
       <ImageBackground
         source={Images.bg_login}
-        style={{ flex: 1 }}
+        style={{ width: "100%", height:"100%" }}
       >
         {this.props.loading && <Loading />}
+        <ScrollView style={{ width: "100%", height:"100%" }}>
         <View style={styles.container}>
           <View style={styles.loginForm}>
             <View style={styles.input}>
@@ -222,17 +223,19 @@ export default class Login extends React.Component {
             </TouchableHighlight>
           </View>
         </View>
+        </ScrollView>
+        
       </ImageBackground>
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    height: '100%',
+    flex: 1,
+    // height: '80%',
+    marginTop: Sizes.s200,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: "#eee"
   },
   logo: {
     width: isPhone ? Sizes.s340 : Sizes.s200,

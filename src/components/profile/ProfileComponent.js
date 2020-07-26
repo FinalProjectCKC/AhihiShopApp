@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button, Image, View, Text,SafeAreaView } from 'react-native';
-
+import Headers from '../custom/Headers';
 export default class ProfileCoponent extends React.Component {
   render() {
     return (
