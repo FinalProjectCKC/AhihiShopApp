@@ -14,12 +14,13 @@ import { SafeAreaView } from 'react-navigation';
 import { objectIsNull } from '@dungdang/react-native-basic/src/Functions';
 import { StyleSheet, Dimensions, StatusBar } from "react-native";
 import { isPhone, screen } from '../../config/settings'
-
+import Loading from '../custom/Loading';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Sizes } from "@dungdang/react-native-basic";
 import Images from "../../res/images";
 import InputBox from "./InputBox";
-
+export const width = Dimensions.get('window').width;
+export const height = Dimensions.get('window').height;
 export default class RegisterComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -62,8 +63,8 @@ export default class RegisterComponent extends React.Component {
         erEmail: "Email không được bỏ trống"
       })
     }
-    if(username !== "" && password !== "" && rePassword !== "" && email !== "" ){
-      let input ={
+    if (username !== "" && password !== "" && rePassword !== "" && email !== "") {
+      let input = {
         username: username,
         password: password,
         rePassword: rePassword,
@@ -96,7 +97,30 @@ export default class RegisterComponent extends React.Component {
         source={Images.bg_login}
         style={{ flex: 1 }}
       >
-        <ScrollView style={{ flex: 1 }}>
+        {this.props.loading && <Loading />}
+        <View style={{ width: "100%", height: "13%"}}>
+          <TouchableOpacity style={{
+                // marginLeft: Sizes.s50,
+                marginTop: Sizes.s70,
+                width: Sizes.s160,
+                height: Sizes.s120,
+                zIndex:5,
+              }} onPress={()=>{
+                this.props.navigation.goBack()
+              }}>
+            <Image
+              style={{
+                marginTop: Sizes.s20,
+                marginLeft: Sizes.s50,
+                resizeMode: "contain",
+                width: Sizes.s50,
+                height: Sizes.s50,
+              }}
+              source={Images.ic_back}
+            />
+          </TouchableOpacity>
+        </View>
+        <ScrollView style={{ width: '100%', height: "77%" }}>
           <View style={styles.container}>
             <View style={styles.regisFrom}>
               <View style={styles.input}>
@@ -231,7 +255,6 @@ export default class RegisterComponent extends React.Component {
               </TouchableHighlight>
             </View>
           </View>
-
         </ScrollView>
       </ImageBackground>
     );
@@ -239,17 +262,10 @@ export default class RegisterComponent extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    height: '100%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: "#eee"
-  },
-  logo: {
-    width: isPhone ? Sizes.s340 : Sizes.s200,
-    height: isPhone ? Sizes.s340 : Sizes.s200,
-    resizeMode: "contain",
-    marginBottom: isPhone ? "5%" : "3%",
+    marginTop: Sizes.s100,
   },
   content: {
     width: "100%",
@@ -271,7 +287,8 @@ const styles = StyleSheet.create({
   },
   regisFrom: {
     width: (screen.width * 3) / 4,
-    height: isPhone ? "40%" : "50%",
+    marginTop: Sizes.s60,
+    height: "100%",
   },
   boxInput: {
     width: "100%",

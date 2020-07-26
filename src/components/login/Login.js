@@ -16,7 +16,7 @@ import { SafeAreaView } from 'react-navigation';
 import { objectIsNull } from '@dungdang/react-native-basic/src/Functions';
 import { StyleSheet, Dimensions, StatusBar } from "react-native";
 import { isPhone, screen } from '../../config/settings'
-
+import Loading from '../custom/Loading';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Sizes } from "@dungdang/react-native-basic";
 import Images from "../../res/images";
@@ -30,9 +30,35 @@ export default class Login extends React.Component {
       passwordHidden: true,
       username: "",
       password: "",
+      erUser: "",
+      erPass: "",
       buttonTitle: "Đăng nhập",
       alert: null,
     };
+  }
+  onLogin() {
+    const { erUser, erPass, username, password } = this.state
+    if (username == "") {
+      this.setState({
+        erUser: "Vui lòng nhập tài khoản"
+      })
+    }
+    if (password == "") {
+      this.setState({
+        erPass: "Vui lòng nhập mật khẩu"
+      })
+    }
+    console.log("asdfasdfasdfas", erUser)
+    console.log("erPass", erPass)
+    console.log("asdfasdfasdfas", username)
+    console.log("password", password)
+    if (username !== "" && password !== "") {
+      let input = {
+        username: username,
+        password: password,
+      }
+      this.props.loginAction(input)
+    }
   }
   componentDidUpdate(prevProps) {
     if (this.props.error !== prevProps.error && this.props.error !== null) {
@@ -53,6 +79,7 @@ export default class Login extends React.Component {
         source={Images.bg_login}
         style={{ flex: 1 }}
       >
+        {this.props.loading && <Loading />}
         <View style={styles.container}>
           <View style={styles.loginForm}>
             <View style={styles.input}>
@@ -61,11 +88,24 @@ export default class Login extends React.Component {
                 leftIcon={Images.ic_user}
                 autoCompleteType='username'
                 onChangeText={(text) =>
-                  this.setState({ username: text })
+                  this.setState({ username: text, erUser: "" })
                 }
                 title="Tên đăng nhập"
                 onRightIconPress={() => { }}
               />
+              {this.state.erUser !== "" ? (
+                <Text
+                  style={{
+                    marginTop: Sizes.s10,
+                    fontSize: Sizes.h32,
+                    color: "red",
+                  }}
+                >
+                  {this.state.erUser}
+                </Text>
+              ) : null}
+            </View>
+            <View style={styles.input}>
               <InputBox
                 value={this.state.password}
                 leftIcon={Images.ic_lock}
@@ -76,7 +116,7 @@ export default class Login extends React.Component {
                 }
                 autoCompleteType='password'
                 onChangeText={(text) =>
-                  this.setState({ password: text })
+                  this.setState({ password: text, erPass: "" })
                 }
                 title="Mật khẩu"
                 secureTextEntry={this.state.passwordHidden}
@@ -87,19 +127,18 @@ export default class Login extends React.Component {
                   })
                 }
               />
+              {this.state.erPass !== "" ? (
+                <Text
+                  style={{
+                    marginTop: Sizes.s10,
+                    fontSize: Sizes.h32,
+                    color: "red",
+                  }}
+                >
+                  {this.state.erPass}
+                </Text>
+              ) : null}
             </View>
-
-            {/* {this.props.error ? (
-              <Text
-                style={{
-                  marginTop: Sizes.s10,
-                  fontSize: Sizes.h32,
-                  color: "red",
-                }}
-              >
-                {this.props.error}
-              </Text>
-            ) : null} */}
             <View style={styles.remember}>
               <Icon
                 name={
@@ -129,11 +168,7 @@ export default class Login extends React.Component {
             <TouchableHighlight
               underlayColor="transparent"
               onPress={() => {
-                let input = {
-                  username: this.state.username,
-                  password: this.state.password,
-                }
-                this.props.loginAction(input)
+                this.onLogin()
               }}
             // onPress={() => this.props.navigation.navigate('MyModal')}
             >
@@ -234,10 +269,11 @@ const styles = StyleSheet.create({
     borderRadius: Sizes.s10,
     justifyContent: "space-around",
     alignItems: "center",
-    marginTop: Sizes.s60,
+    // marginTop: Sizes.s60,
   },
   input: {
-    height: isPhone ? Sizes.s200 : Sizes.s160,
+    marginTop: Sizes.s60,
+    // height: isPhone ? Sizes.s200 : Sizes.s160,
     justifyContent: "space-between",
   },
   button: {
@@ -257,6 +293,6 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     marginBottom: Sizes.s20,
-    marginTop: Sizes.s20,
+    marginTop: Sizes.s60,
   },
 });
