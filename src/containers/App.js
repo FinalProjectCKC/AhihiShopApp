@@ -12,6 +12,7 @@ import WelcomeScreen from '../components/welcomeScreen/WelcomeScreen';
 
 //User
 import LoginContainer from '../containers/login/LoginContainer';
+import RegisContainer from '../containers/login/RegisContainer';
 import HomeContainer from '../containers/home/HomeContainer';
 import ProfileContainer from '../containers/profile/ProfileContainer';
 import CartContainer from './cart/CartContainer';
@@ -218,6 +219,9 @@ const RootStack = createStackNavigator(
     },
     Login: {
       screen: LoginContainer,
+    },
+    RegisContainer: {
+      screen: RegisContainer,
     },
     MyModal: {
       screen: TAB,

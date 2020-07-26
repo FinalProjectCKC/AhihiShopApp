@@ -26,16 +26,12 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: false,
-      loged: false,
       remember: true,
       passwordHidden: true,
       username: "",
       password: "",
       buttonTitle: "Đăng nhập",
       alert: null,
-      modalVisible: false,
-      keyboardHidden: true,
     };
   }
   componentDidUpdate(prevProps) {
@@ -93,7 +89,7 @@ export default class Login extends React.Component {
               />
             </View>
 
-            {this.props.description ? (
+            {/* {this.props.error ? (
               <Text
                 style={{
                   marginTop: Sizes.s10,
@@ -101,20 +97,9 @@ export default class Login extends React.Component {
                   color: "red",
                 }}
               >
-                {this.props.description}
+                {this.props.error}
               </Text>
-            ) : null}
-            {this.state.alert ? (
-              <Text
-                style={{
-                  marginTop: Sizes.s10,
-                  fontSize: Sizes.h32,
-                  color: "red",
-                }}
-              >
-                {this.state.alert}
-              </Text>
-            ) : null}
+            ) : null} */}
             <View style={styles.remember}>
               <Icon
                 name={
@@ -166,7 +151,7 @@ export default class Login extends React.Component {
                 margin: Sizes.h30,
               }}
               onPress={() => {
-                this.props.navigation.navigate("Regis");
+                this.props.navigation.navigate("RegisContainer");
               }}
             >
               <Text

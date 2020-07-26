@@ -1,25 +1,28 @@
-import { POST_REGIS,POST_REGIS_ERROR,POST_REGIS_SUCCESS } from '../../../actions/login/RegisActions';
+import { POST_REGIS, POST_REGIS_ERROR, POST_REGIS_SUCCESS } from '../../../actions/login/RegisActions';
 
 
 import { call, takeEvery, put } from 'redux-saga/effects';
+import { objectIsNull } from '@dungdang/react-native-basic/src/Functions';
+import { registerApi } from '../../api/login/RegisterApi'
 
-import { postRegis } from '../../api/login/regis'
+const errorRes = "Không lấy được dữ liệu"
 
-
-
-function* regisFlow(action) {
-  const { data } = action.data
+function* registerFlow(action) {
   try {
-    const response = yield postRegis(data)
-    // console.log(response)
-    yield put({ type: POST_REGIS_SUCCESS, response })
+    const response = yield registerApi(action.data)
+    if (response != undefined && !objectIsNull(response)) {
+      if (response.status == 1) {
+        yield put({ type: POST_REGIS_SUCCESS, response })
+      } else {
+        yield put({ type: POST_REGIS_ERROR, error: response.message })
+      }
+    } else {
+      yield put({ type: POST_REGIS_ERROR, error: errorRes })
+    }
   } catch (error) {
-    // console.log("signInFlow")
-    //console.log(error)
-    yield put({ type: POST_REGIS_ERROR, error })
+    yield put({ type: POST_REGIS_ERROR, error: error })
   }
 }
-
-export function* watchRegis() {
-  yield takeEvery(POST_REGIS, regisFlow);
+export function* watchRegister() {
+  yield takeEvery(POST_REGIS, registerFlow);
 }

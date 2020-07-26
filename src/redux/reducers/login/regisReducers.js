@@ -1,39 +1,38 @@
-
-import { POST_REGIS,POST_REGIS_SUCCESS,POST_REGIS_ERROR } from '../../actions/login/RegisActions';
+import {
+    POST_REGIS,
+    POST_REGIS_SUCCESS,
+    POST_REGIS_ERROR,
+} from '../../actions/login/RegisActions';
 
 const initialState = {
-    description : null,
-    status: null,
-    loading: false
-}
+    loading: false,
+    error: null,
+    data: null,
+};
 
-const regisReducers = (regis = initialState, action) => {
-
+const registerReducers = (state = initialState, action) => {
     switch (action.type) {
         case POST_REGIS:
-            return {
-                description: null,
-                status: null,
-                result: null,
-                loading: true
-            }
+            return Object.assign({}, state, {
+                loading: true,
+                data: null,
+                error: null
+            });
         case POST_REGIS_SUCCESS:
-            return {
-                description: action.response.description,
-                status: action.response.status,
-                loading: false
-            }
+            return Object.assign({}, state, {
+                loading: false,
+                data: action.response.data,
+                error: null
+            });
 
         case POST_REGIS_ERROR:
-            return {
-                description: 'Vui lòng kiểm tra kết nối',
-                status: "FAIL",
-                loading: false
-            }
-
+            return Object.assign({}, state, {
+                loading: false,
+                data: null,
+                error: action.error
+            });
         default:
-            return regis;
+            return state;
     }
-}
-
-export default regisReducers;
+};
+export default registerReducers;
