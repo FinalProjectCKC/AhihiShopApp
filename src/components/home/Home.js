@@ -206,11 +206,11 @@ export default class Home extends React.Component {
         />
            <HomeScrollItem
           listType={listType}
-          itemTitle={"Giảm giá đặc biệt"}
+          itemTitle={"Danh mục sản phẩm"}
         />
            <HomeScrollItem
           listType={listType}
-          itemTitle={"Giảm giá đặc biệt"}
+          itemTitle={"Gợi ý cho bạn"}
         />
       </ScrollView>
     );
@@ -222,7 +222,7 @@ export class HomeScrollItem extends React.Component {
     return (
       <View styles={{ flex: 1 }}>
         <View style={stylesItem.ViewItemTitle}>
-          <Text style={{ fontSize: Sizes.s45, marginLeft: Sizes.s20}}>{itemTitle}</Text>
+          <Text style={{ flex: 8,fontSize: Sizes.s45, marginLeft: Sizes.s30}}>{itemTitle}</Text>
           <TouchableOpacity
             style={stylesItem.seeMore}
             onPress={() => {
@@ -299,9 +299,11 @@ const stylesItem = StyleSheet.create({
     flexWrap: "wrap",
   },
   seeMore: {
+    flex: 3,
     height: screen.width * 0.7,
+    left: 0,
     marginRight: Sizes.s20,
-    marginLeft: Sizes.s160,
+    // marginLeft: Sizes.s160,
     // backgroundColor:"red"
   },
   seeMoreText: {
