@@ -63,6 +63,53 @@ export default class Home extends React.Component {
     return (
       <ScrollView style={{ flex: 1 }}>
         {/* header */}
+        <View style={styles.searchBar}>
+							<View
+								style={{
+									backgroundColor: "#F2F2F2",
+									flexDirection: "row",
+                  alignItems: "center",
+                  height: Sizes.s90,
+                  width:"75%",
+									borderRadius: Sizes.s10,
+								}}
+							>
+								<TextInput
+									placeholder="   Tìm kiếm sản phẩm"
+									placeholderTextColor="#ABAAAC"
+									style={{
+										fontSize: Sizes.s30,
+                    paddingVertical: Sizes.s10,
+                    height: Sizes.s100,
+                    marginLeft: Sizes.s10 ,
+										width: "85%",
+										color: "#000000",
+									}}
+									onChangeText={(text) => {
+										// this.setState(
+										// 	{
+										// 		warningList: [],
+										// 		page: 1,
+										// 		limit: 10,
+										// 		searchText: text,
+										// 	},
+										// 	() => {
+										// 		this.loadData();
+										// 	}
+										// );
+                  }
+                }
+								/>
+                <Image
+									source={Images.ic_search}
+									style={{
+										height: Sizes.s40,
+										width: Sizes.s40,
+										// marginHorizontal: Sizes.s20,
+									}}
+								/>
+							</View>
+        </View>
         <View style={styles.header}>
           <Swiper ref={this.slideImage}>
           {
@@ -86,9 +133,9 @@ export default class Home extends React.Component {
             indexSlide={this.state.indexSlide} /> */}
         </View>
         {/* content */}
-        {/* <View style={styles.content}>
+        <View style={styles.content}>
           <Text> content!</Text>
-        </View> */}
+        </View>
       </ScrollView>
     );
   }
@@ -104,6 +151,19 @@ const styles = StyleSheet.create({
   wrapper: {},
   slide: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  searchBar: {
+		flexDirection: "row",
+		borderRadius: Sizes.s10,
+		marginLeft: Sizes.s20,
+		marginRight: Sizes.s30,
+    position:'absolute',
+    zIndex: 5,
+    marginTop:  Sizes.s100,
+    width: "100%",
+    height: Sizes.s100,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -27,7 +27,6 @@ const Swiper = forwardRef((props, ref) => {
     }
   }))
 
-
   return (
     <ScrollView
       horizontal
