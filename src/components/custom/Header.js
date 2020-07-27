@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -7,14 +7,14 @@ import {
   ImageBackground,
   Dimensions,
 } from 'react-native';
-import {Sizes} from '@dungdang/react-native-basic';
+import { Sizes } from '@dungdang/react-native-basic';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconB from 'react-native-vector-icons/Ionicons';
 import Images from '../../res/images';
 
 export default class Header extends Component {
   render() {
-    const {title, onPressBackButton, timeWeather, navigation} = this.props;
+    const { title, onPressBackButton, timeWeather, navigation } = this.props;
     return (
       <View>
         {timeWeather == 'true' ? (
@@ -37,10 +37,10 @@ export default class Header extends Component {
                   borderRightColor: '#FFF',
                   borderRightWidth: Sizes.s2,
                 }}>
-                <Text style={{color: '#FFCE00', fontSize: Sizes.s25}}>
+                <Text style={{ color: '#FFCE00', fontSize: Sizes.s25 }}>
                   THỨ SÁU
                 </Text>
-                <Text style={{color: '#FFCE00', fontSize: Sizes.s30}}>
+                <Text style={{ color: '#FFCE00', fontSize: Sizes.s30 }}>
                   29/05/2020
                 </Text>
               </View>
@@ -50,59 +50,59 @@ export default class Header extends Component {
                   alignContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={{fontSize: Sizes.s30, color: '#FFF'}}>30 °C</Text>
-                <Text style={{fontSize: Sizes.s30, color: '#FFF'}}>
+                <Text style={{ fontSize: Sizes.s30, color: '#FFF' }}>30 °C</Text>
+                <Text style={{ fontSize: Sizes.s30, color: '#FFF' }}>
                   Quy Nhơn
                 </Text>
               </View>
             </View>
           </ImageBackground>
         ) : (
-          <ImageBackground
-            resizeMode="stretch"
-            source={Images.bg_introduce}
-            style={styles.container}>
-            <Text
-              numberOfLines={2}
-              style={{
-                alignSelf: 'center',
-                fontSize: Sizes.s40,
-                color: '#ffff',
-                marginBottom: Sizes.s15,
-                fontWeight: 'bold',
-              }}>
-              {title}
-            </Text>
+            <ImageBackground
+              resizeMode="stretch"
+              source={Images.bg_introduce}
+              style={styles.container}>
+              <Text
+                numberOfLines={2}
+                style={{
+                  alignSelf: 'center',
+                  fontSize: Sizes.s40,
+                  color: '#ffff',
+                  marginBottom: Sizes.s15,
+                  fontWeight: 'bold',
+                }}>
+                {title}
+              </Text>
 
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                left: Sizes.s30,
-                width: Sizes.s60,
-                height: Sizes.s60,
-                justifyContent: 'center',
-              }}
-              onPress={() => {
-                if (onPressBackButton) {
-                  onPressBackButton();
-                } else if (navigation) {
-                  navigation.goBack();
-                }
-              }}>
-              <IconB
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  left: Sizes.s30,
+                  width: Sizes.s60,
+                  height: Sizes.s60,
+                  justifyContent: 'center',
+                }}
+                onPress={() => {
+                  if (onPressBackButton) {
+                    onPressBackButton();
+                  } else if (navigation) {
+                    navigation.goBack();
+                  }
+                }}>
+                <IconB
                   name="ios-arrow-round-back"
                   color="white"
                   size={Sizes.s90}
-                  style={{ marginRight: Sizes.s20, paddingBottom:Sizes.s100 }}
+                  style={{ marginRight: Sizes.s20, paddingBottom: Sizes.s100 }}
                 />
-            </TouchableOpacity>
-          </ImageBackground>
-        )}
+              </TouchableOpacity>
+            </ImageBackground>
+          )}
       </View>
     );
   }
 }
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     marginLeft: Sizes.s20,
     color: '#fff',
     // fontSize: Sizes.s50,
-   //  marginBottom: Sizes.s2,
+    //  marginBottom: Sizes.s2,
   },
 
   cell: {

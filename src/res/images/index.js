@@ -117,6 +117,8 @@ const Images = {
   letter: require("./letter.png"),
   logo: require("./logo_Shop.png"),
 
+  gif_shipping: require("./Shipping.gif"),
+
   shopping_cart: require("./shopping-cart.png"),
 };
 export default Images;

@@ -190,7 +190,9 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
+    implementation 'com.facebook.fresco:animated-gif:1.12.0' //instead of
 
+    implementation 'com.facebook.fresco:animated-gif:2.0.0'   //use
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
         exclude group:'com.squareup.okhttp3', module:'okhttp'

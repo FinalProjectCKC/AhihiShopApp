@@ -17,7 +17,8 @@ import HomeContainer from '../containers/home/HomeContainer';
 import ProfileContainer from '../containers/profile/ProfileContainer';
 import CartContainer from './cart/CartContainer';
 import NotificationContainer from './notification/NotificationContainer';
-
+//Order
+import OrderShipping from '../components/order/OrderShipping';
 //Admin
 import ControlContainer from './control/ControlContainer';
 import OrderContainer from './order/OrderContainer';
@@ -222,6 +223,9 @@ const RootStack = createStackNavigator(
     },
     RegisContainer: {
       screen: RegisContainer,
+    },
+    OrderShipping: {
+      screen: OrderShipping,
     },
     MyModal: {
       screen: TAB,
