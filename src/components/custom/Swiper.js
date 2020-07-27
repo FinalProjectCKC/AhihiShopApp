@@ -17,6 +17,17 @@ import { ScrollView } from 'react-native-gesture-handler'
 const Swiper = forwardRef((props, ref) => {
   const [index, setIndex] = useState(props.index)
 
+  useImperativeHandle(ref, () => ({
+    scrollToIndex: (index) => {
+      this.scrollView.scrollTo({
+        x: index * Dimensions.get('window').width,
+        y: 0,
+        animated: true
+      })
+    }
+  }))
+
+
   return (
     <ScrollView
       horizontal

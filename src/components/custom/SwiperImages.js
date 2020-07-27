@@ -15,46 +15,70 @@ import {
 import { Sizes } from "@dungdang/react-native-basic";
 import Images from '../../res/images';
 import Icon from "react-native-vector-icons/FontAwesome5";
-import Swiper from 'react-native-swiper'
+// import Swiper from 'react-native-swiper'
+import Swiper from '../custom/Swiper'
 import { isPhone, screen } from '../../config/settings'
 
 export default class SwiperImages extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      indexSlide: 0
+    }
+  }
+  componentDidUpdate(prevProps) {
+    console.log("=))", this.props.indexSlide)
+    if (this.props.indexSlide != prevProps.indexSlide) {
+      this.setState({
+        indexSlide: this.props.indexSlide
+      })
+    }
   }
   render() {
-    const { imgData } = this.props
+    const listImage = this.props.listImage
     return (
-      <View style={styles.container}>
-          <Swiper
-            style={styles.wrapper}
-            height={0}
-            showsButtons
-            onMomentumScrollEnd={(e, state, context) =>
-              console.log('index:', state.index)
-            }
-            paginationStyle={{
-              bottom: -23,
-              left: null,
-              right: 10
-            }}
-            loop
-          >
-            {imgData.map((item) => (
-              <View
-                style={styles.slide}
-              // title={
-              //   <Text numberOfLines={1}>Ahihi</Text>
-              // }
-              >
+      <View style={styles.header}>
+        <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        ref={ref => { this.scrollView = ref }}
+        onLayout={() => {
+          this.scrollView.scrollTo({
+            x: this.state.indexSlide * Dimensions.get('window').width,
+            y: 0,
+            animated: false
+          })
+      }}
+      pagingEnabled={true}
+    >
+      {props.children}
+    </ScrollView>
+
+        {/* <Swiper
+          index={this.state.indexSlide}
+          style={styles.wrapper}
+          dotStyle={{
+            borderWidth: 1,
+            borderColor: '#007AFF',
+            backgroundColor: '#222222'
+          }}
+        >
+          {
+            listImage.map(item =>
+              <View style={styles.slide}>
                 <Image
-                  resizeMode="cover"
-                  style={styles.image}
+                  defaultSource={require('../../res/images/ic_default.jpg')}
+                  resizeMode='contain'
                   source={{ uri: item.url }}
+                  style={{
+                    width: Dimensions.get('window').width,
+                    height: Dimensions.get('window').height,
+                  }}
                 />
               </View>
-            ))}
-          </Swiper>
+            )
+          }
+        </Swiper> */}
       </View>
     )
   }
@@ -64,13 +88,13 @@ const styles = {
   container: {
     flex: 1,
   },
-    imgHeader: {
-      width: "100%",
-      height: isPhone ? Sizes.s340 * 1.2 : Sizes.s340,
-      justifyContent: 'center',
-       alignItems: 'center',
-        backgroundColor:"red"
-    },
+  imgHeader: {
+    width: "100%",
+    height: isPhone ? Sizes.s340 * 1.2 : Sizes.s340,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "red"
+  },
   slide: {
     flex: 1,
     height: isPhone ? Sizes.s340 * 1.2 : Sizes.s340,
