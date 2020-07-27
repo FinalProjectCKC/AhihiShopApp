@@ -14,40 +14,30 @@ import {
 } from "@dungdang/react-native-basic/src/Functions";
 import { Sizes } from "@dungdang/react-native-basic";
 import Images from '../../res/images';
-import themes from "../../res/themes";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Swiper from 'react-native-swiper'
+import { isPhone, screen } from '../../config/settings'
 
 export default class SwiperImages extends Component {
   constructor(props) {
     super(props)
-    // this.onCloseFullScreen = this.onCloseFullScreen.bind(this)
-    this.props.onClose = this.props.onClose.bind(this)
   }
   render() {
     const { imgData } = this.props
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.close} onPress={()=> this.props.onClose()}>
-          <Image
-            style={{ flex: 1 }}
-            resizeMode="contain"
-            source={Images.ic_close}
-          />
-        </TouchableOpacity>
-        <View style={styles.containerWrap}>
           <Swiper
             style={styles.wrapper}
-            height={240}
+            height={0}
             showsButtons
             onMomentumScrollEnd={(e, state, context) =>
               console.log('index:', state.index)
             }
-            // paginationStyle={{
-            //   bottom: -23,
-            //   left: null,
-            //   right: 10
-            // }}
+            paginationStyle={{
+              bottom: -23,
+              left: null,
+              right: 10
+            }}
             loop
           >
             {imgData.map((item) => (
@@ -58,14 +48,13 @@ export default class SwiperImages extends Component {
               // }
               >
                 <Image
-                  resizeMode="contain"
+                  resizeMode="cover"
                   style={styles.image}
-                  source={{ uri: item.FileID }}
+                  source={{ uri: item.url }}
                 />
               </View>
             ))}
           </Swiper>
-        </View>
       </View>
     )
   }
@@ -73,36 +62,24 @@ export default class SwiperImages extends Component {
 const { width, height } = Dimensions.get('window')
 const styles = {
   container: {
-    position: "absolute",
-    backgroundColor: 'rgba(25,55,55,0.9)',
-    zIndex: 1,
     flex: 1,
   },
-  close: {
-    marginLeft: Sizes.s10,
-    marginTop: Sizes.s70,
-    height: Sizes.s100,
-    width: Sizes.s100,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: Sizes.s100,
-  },
-  containerWrap: {
-    height: (height * 5 / 6),
-    width: width,
-  },
-  wrapper: {
-    // backgroundColor: "red",
-  },
+    imgHeader: {
+      width: "100%",
+      height: isPhone ? Sizes.s340 * 1.2 : Sizes.s340,
+      justifyContent: 'center',
+       alignItems: 'center',
+        backgroundColor:"red"
+    },
   slide: {
     flex: 1,
+    height: isPhone ? Sizes.s340 * 1.2 : Sizes.s340,
     justifyContent: 'center',
     backgroundColor: 'transparent'
   },
   text: {
     color: '#fff',
-    fontSize: 30,
+    fontSize: Sizes.s60,
     fontWeight: 'bold'
   },
   titleIntro: {
@@ -120,6 +97,6 @@ const styles = {
   },
   image: {
     width,
-    flex: 1
+    height: isPhone ? Sizes.s340 * 1.2 : Sizes.s340,
   }
 }

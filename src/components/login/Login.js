@@ -10,9 +10,9 @@ import {
   ScrollView,
   ImageBackground,
   TouchableHighlight,
-  Alert
+  Alert,
+  SafeAreaView
 } from 'react-native';
-import { SafeAreaView } from 'react-navigation';
 import { objectIsNull } from '@dungdang/react-native-basic/src/Functions';
 import { StyleSheet, Dimensions, StatusBar } from "react-native";
 import { isPhone, screen } from '../../config/settings'
@@ -48,10 +48,6 @@ export default class Login extends React.Component {
         erPass: "Vui lòng nhập mật khẩu"
       })
     }
-    console.log("asdfasdfasdfas", erUser)
-    console.log("erPass", erPass)
-    console.log("asdfasdfasdfas", username)
-    console.log("password", password)
     if (username !== "" && password !== "") {
       let input = {
         username: username,

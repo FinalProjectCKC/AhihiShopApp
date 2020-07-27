@@ -17,7 +17,7 @@ import {
 	objectIsNull,
 } from "@dungdang/react-native-basic/src/Functions";
 import Images from "../../res/images";
-
+import { isPhone, screen } from '../../config/settings'
 export default class Headers extends React.Component {
 	constructor(props) {
 		super(props);
@@ -307,6 +307,7 @@ export default class Headers extends React.Component {
 		return <View>{this.renderSwitch(props)}</View>;
 	}
 }
+
 const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
 	ImageContainer: {
