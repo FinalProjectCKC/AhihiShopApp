@@ -24,6 +24,7 @@ import Swiper from '../custom/Swiper'
 import SwiperImages from '../custom/SwiperImages'
 import FastImage from 'react-native-fast-image'
 import OrderShippingComponent from '../order/OrderShipping'
+import IconMenu from "./IconMenu";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -60,27 +61,74 @@ export default class Home extends React.Component {
     {
       url: "https://i.pinimg.com/236x/63/e3/72/63e372af804049f16527fcb1f2e55f50.jpg"
     },]
-    const listType = [{
-      url: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/5d/b0/55/5db05527613c8e6fa76d88abb1b02c66.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/59/ee/34/59ee347f8c614775178b99cd44a1c01e.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/db/09/f0/db09f09594b1f6cf431f51573dd7689f.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/63/e3/72/63e372af804049f16527fcb1f2e55f50.jpg"
-    },]
+    const listType = [
+      {
+        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        iconTitle: "Ahihi",
+        screenNavigate: "",
+      },
+      {
+        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        iconTitle: "Ahihi",
+        screenNavigate: "",
+      },
+      {
+        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        iconTitle: "Ahihi",
+        screenNavigate: "",
+      },
+      {
+        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        iconTitle: "Ahihi",
+        screenNavigate: "",
+      },
+      {
+        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        iconTitle: "Ahihi",
+        screenNavigate: "",
+      },
+      {
+        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        iconTitle: "Ahihi",
+        screenNavigate: "",
+      },
+      {
+        imgUri: "https://i.pinimg.com/236x/5d/b0/55/5db05527613c8e6fa76d88abb1b02c66.jpg",
+        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        iconTitle: "Ahihi",
+        screenNavigate: "",
+      },
+      {
+        imgUrl: Images.ic_luggage,
+        imgUri: "",
+        iconTitle: "Ahihi",
+        screenNavigate: "",
+      },
+      {
+        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
+        iconTitle: "Ahihi",
+        screenNavigate: "",
+      },
+      {
+        imgUrl: Images.ic_more,
+        imgUri: "",
+        iconTitle: "Xem thêm",
+        screenNavigate: "",
+      },
+    ]
     setTimeout(() => { this.onChangeSlide(listImage.length) }, 3000)
-//     return(
-// <OrderShippingComponent/>
-//     )
+    // return (
+    //   <OrderShippingComponent></OrderShippingComponent>
+    // )
     return (
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         {/* header */}
         <View style={styles.searchBar}>
           <View
@@ -152,20 +200,62 @@ export default class Home extends React.Component {
             indexSlide={this.state.indexSlide} /> */}
         </View>
         {/* productType */}
-        <View style={styles.content}>
-          <Text> content!</Text>
-        </View>
+        <HomeScrollItem
+          listType={listType}
+          itemTitle={"Giảm giá đặc biệt"}
+        />
+           <HomeScrollItem
+          listType={listType}
+          itemTitle={"Giảm giá đặc biệt"}
+        />
+           <HomeScrollItem
+          listType={listType}
+          itemTitle={"Giảm giá đặc biệt"}
+        />
       </ScrollView>
     );
   }
 }
+export class HomeScrollItem extends React.Component {
+  render() {
+    const { listType, itemTitle } = this.props
+    return (
+      <View styles={{ flex: 1 }}>
+        <View style={stylesItem.ViewItemTitle}>
+          <Text style={{ fontSize: Sizes.s45, marginLeft: Sizes.s20}}>{itemTitle}</Text>
+          <TouchableOpacity
+            style={stylesItem.seeMore}
+            onPress={() => {
+              // this.props.navigation.navigate("");
+            }}
+            underlayColor="rgb(255, 255, 255)"
+          >
+            <Text style={stylesItem.seeMoreText}>Xem Thêm</Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView contentContainerStyle={styles.content} showsHorizontalScrollIndicator={false} horizontal={true} number={2}>
+          {listType.map((iconData) => (
+            <IconMenu
+              {...this.props}
+              style={{ marginLeft: 0 }}
+              imgUrl={iconData.imgUrl}
+              imgUri={iconData.imgUri}
+              title={iconData.iconTitle}
+              screenNavigate={iconData.screenNavigate}
+            />
+          ))}
+        </ScrollView>
+      </View>
+    )
+  }
+}
 const styles = StyleSheet.create({
   header: {
-    width: "100%",
+    // width: "100%",
     height: isPhone ? Sizes.s340 * 1.2 : Sizes.s340,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "red"
+    // backgroundColor: "red"
   },
   wrapper: {},
   slide: {
@@ -176,21 +266,48 @@ const styles = StyleSheet.create({
   searchBar: {
     flexDirection: "row",
     borderRadius: Sizes.s10,
-    marginLeft: Sizes.s20,
-    marginRight: Sizes.s30,
+    // marginLeft: Sizes.s20,
+    // marginRight: Sizes.s30,
     position: 'absolute',
     zIndex: 5,
-    marginTop: Sizes.s100,
+    marginTop: Sizes.s120,
     width: "100%",
     height: Sizes.s100,
     justifyContent: 'center',
     alignItems: 'center',
   },
   content: {
+    // flex: 1,
+    width: "165%",
+    height: screen.width * 0.7,
+    // height: isPhone ? Sizes.s340 * 1.3 : Sizes.s340 + Sizes.s120,
+    // marginTop: Sizes.s30,
+    backgroundColor: "white",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    // justifyContent: "flex-start",
+  },
+})
+const stylesItem = StyleSheet.create({
+  ViewItemTitle: {
     width: "100%",
-    height: isPhone ? Sizes.s340 * 1.2 : Sizes.s340,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: "blue"
+    height: Sizes.s75,
+    marginTop: Sizes.s45,
+    backgroundColor: "white",
+    // alignItems: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  seeMore: {
+    height: screen.width * 0.7,
+    marginRight: Sizes.s20,
+    marginLeft: Sizes.s160,
+    // backgroundColor:"red"
+  },
+  seeMoreText: {
+    marginTop: Sizes.s10,
+    fontSize: Sizes.s35,
+    color: "blue",
+    flexWrap: "wrap",
   },
 })

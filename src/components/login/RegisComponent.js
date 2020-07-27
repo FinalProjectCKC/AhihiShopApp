@@ -95,9 +95,10 @@ export default class RegisterComponent extends React.Component {
     return (
       <ImageBackground
         source={Images.bg_login}
-        style={{ flex: 1 }}
+        style={{ flex: 1 ,}}
       >
         {this.props.loading && <Loading />}
+        <View style={{flex:1,backgroundColor: "rgba(96,96,96 ,0.5)" }}>
         <View style={{ width: "100%", height: "13%"}}>
           <TouchableOpacity style={{
                 // marginLeft: Sizes.s50,
@@ -256,6 +257,8 @@ export default class RegisterComponent extends React.Component {
             </View>
           </View>
         </ScrollView>
+     
+        </View>
       </ImageBackground>
     );
   }

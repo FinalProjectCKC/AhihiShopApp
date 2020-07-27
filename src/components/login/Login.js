@@ -76,7 +76,7 @@ export default class Login extends React.Component {
         style={{ width: "100%", height:"100%" }}
       >
         {this.props.loading && <Loading />}
-        <ScrollView style={{ width: "100%", height:"100%" }}>
+        <ScrollView style={{ width: "100%", height:"100%", backgroundColor: "rgba(96,96,96 ,0.5)" }}>
         <View style={styles.container}>
           <View style={styles.loginForm}>
             <View style={styles.input}>
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: Sizes.s100,
-    backgroundColor: "rgba(145, 139, 138, 0.8)",
+    backgroundColor: "rgba(145, 139, 138, 1)",
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",

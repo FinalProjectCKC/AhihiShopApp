@@ -28,6 +28,7 @@ const RouteUser = {
     screen: HomeContainer,
     navigationOptions: {
       tabBarLabel: "Trang chủ",
+      tabBarOptions: { activeTintColor:'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -64,6 +65,7 @@ const RouteUser = {
     screen: NotificationContainer,
     navigationOptions: {
       tabBarLabel: "Thông báo",
+      tabBarOptions: { activeTintColor:'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -82,6 +84,7 @@ const RouteUser = {
     screen: CartContainer,
     navigationOptions: {
       tabBarLabel: "Giỏ hàng",
+      tabBarOptions: { activeTintColor:'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -100,6 +103,7 @@ const RouteUser = {
     screen: ProfileContainer,
     navigationOptions: {
       tabBarLabel: "Tôi",
+      tabBarOptions: { activeTintColor:'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -120,6 +124,7 @@ const RouteAdmin = {
     screen: HomeContainer,
     navigationOptions: {
       tabBarLabel: "Trang chủ",
+      tabBarOptions: { activeTintColor:'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -138,6 +143,7 @@ const RouteAdmin = {
     screen: NotificationContainer,
     navigationOptions: {
       tabBarLabel: "Thông báo",
+      tabBarOptions: { activeTintColor:'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -155,7 +161,8 @@ const RouteAdmin = {
   Control: {
 		screen: ControlContainer,
 		navigationOptions: {
-			tabBarLabel: "Quản lý",
+      tabBarLabel: "Quản lý",
+      tabBarOptions: { activeTintColor:'red' },
 			tabBarIcon: ({ tintColor }) => (
 				<Image
 					style={{
@@ -173,7 +180,8 @@ const RouteAdmin = {
   Order: {
 		screen: NotificationContainer,
 		navigationOptions: {
-			tabBarLabel: "Đơn hàng",
+      tabBarLabel: "Đơn hàng",
+      tabBarOptions: { activeTintColor:'red' },
 			tabBarIcon: ({ tintColor }) => (
 				<Image
 					style={{
@@ -192,6 +200,7 @@ const RouteAdmin = {
     screen: ProfileContainer,
     navigationOptions: {
       tabBarLabel: "Tôi",
+      tabBarOptions: { activeTintColor:'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{

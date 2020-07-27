@@ -96,6 +96,8 @@ const Images = {
   ic_roadsign: require("./road-sign.png"),
 
   ic_save: require("./save3x.png"),
+  ic_see_more: require("./ic_see_more.png"),
+  ic_more: require("./more.png"),
   ic_searchdoc: require("./search.png"),
   ic_search: require("./ic_search.png"),
   ic_send: require("./ic_send.png"),
