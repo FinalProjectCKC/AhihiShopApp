@@ -1,16 +1,20 @@
-
-import React from 'react';
-import { Button, Image, View, Text,SafeAreaView } from 'react-native';
-import Headers from '../custom/Headers';
+import React from "react";
+import { Button, Image, View, Text, SafeAreaView } from "react-native";
+import Headers from "../custom/Headers";
 export default class ProfileCoponent extends React.Component {
   render() {
     return (
       <SafeAreaView>
-      
-        <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor:"#eee"}}>
-          <Text  > ProfileCoponent!</Text>
+        <View
+          style={{
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#eee",
+          }}
+        >
+          <Text> ProfileCoponent!</Text>
         </View>
-
       </SafeAreaView>
     );
   }
