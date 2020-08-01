@@ -31,18 +31,11 @@ export default class Home extends React.Component {
     super(props)
     this.state = {
       indexSlide: 0,
-      listProTypeData: [
-        {
-          imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-          imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-          iconTitle: "Ahihi",
-          screenNavigate: "",
-        },
-      ],
     }
     this.slideImage = React.createRef()
   }
   componentDidUpdate(prevProps) {
+    console.log("111", this.state.indexSlide)
     if (this.props.error !== prevProps.error && this.props.error !== null) {
       Alert.alert(
         "Lỗi",
@@ -50,23 +43,6 @@ export default class Home extends React.Component {
         [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false }
       );
-    }
-    if (this.props.listProTypeData !== prevProps.listProTypeData && this.props.error == null && this.props.listProTypeData !== null) {
-      let data = []
-      for (let protype of this.props.listProTypeData) {
-        let newProType = {
-          imgUrl: "",
-          imgUri: "http://127.0.0.1:8080/"+protype.typeImg,
-          // imgUri: "http://127.0.0.1:8080/img/proType/imgType-1596273667867.png",
-          iconTitle: protype.typeName,
-          screenNavigate: "",
-          params: "",
-        }
-        data.push(newProType)
-      }
-      this.setState({
-        listProTypeData: data
-      })
     }
   }
   onChangeSlide(listLength) {
@@ -77,7 +53,7 @@ export default class Home extends React.Component {
       indexSlide = 0
     }
     this.setState({ indexSlide: indexSlide }, () => {
-      this.slideImage.current.scrollToIndex(this.state.indexSlide)
+      this.slideImage.current.scrollToIndex(indexSlide)
     })
   }
   render() {
@@ -95,73 +71,14 @@ export default class Home extends React.Component {
     },
     {
       url: "https://i.pinimg.com/236x/63/e3/72/63e372af804049f16527fcb1f2e55f50.jpg"
+    },
+    {
+      url: "https://i.pinimg.com/236x/59/ee/34/59ee347f8c614775178b99cd44a1c01e.jpg"
+    },
+    {
+      url: "https://i.pinimg.com/236x/db/09/f0/db09f09594b1f6cf431f51573dd7689f.jpg"
     },]
-    const listType = [
-      {
-        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        iconTitle: "Ahihi",
-        screenNavigate: "",
-      },
-      {
-        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        iconTitle: "Ahihi",
-        screenNavigate: "",
-      },
-      {
-        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        iconTitle: "Ahihi",
-        screenNavigate: "",
-      },
-      {
-        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        iconTitle: "Ahihi",
-        screenNavigate: "",
-      },
-      {
-        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        iconTitle: "Ahihi",
-        screenNavigate: "",
-      },
-      {
-        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        iconTitle: "Ahihi",
-        screenNavigate: "",
-      },
-      {
-        imgUri: "https://i.pinimg.com/236x/5d/b0/55/5db05527613c8e6fa76d88abb1b02c66.jpg",
-        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        iconTitle: "Ahihi",
-        screenNavigate: "",
-      },
-      {
-        imgUrl: Images.ic_luggage,
-        imgUri: "",
-        iconTitle: "Ahihi",
-        screenNavigate: "",
-      },
-      {
-        imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-        iconTitle: "Ahihi",
-        screenNavigate: "",
-      },
-      {
-        imgUrl: Images.ic_more,
-        imgUri: "",
-        iconTitle: "Xem thêm",
-        screenNavigate: "",
-      },
-    ]
-    setTimeout(() => { this.onChangeSlide(listImage.length) }, 3000)
-    // return (
-    //   <OrderShippingComponent></OrderShippingComponent>
-    // )
+    setTimeout(() => { this.onChangeSlide(listImage.length) }, 7000)
     return (
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         {/* header */}
@@ -236,16 +153,22 @@ export default class Home extends React.Component {
         </View>
         {/* productType */}
         <HomeScrollItem
-          listType={listType}
+          {...this.props}
+          listType={this.props.listProTypeData}
           itemTitle={"Giảm giá đặc biệt"}
+          naviSeeMore=""
         />
         <HomeScrollItem
-          listType={this.state.listProTypeData}
+          {...this.props}
+          listType={this.props.listProTypeData}
           itemTitle={"Danh mục sản phẩm"}
+          naviSeeMore="ListProductTypeContainer"
         />
         <HomeScrollItem
-          listType={listType}
+          {...this.props}
+          listType={this.props.listProTypeData}
           itemTitle={"Gợi ý cho bạn"}
+          naviSeeMore=""
         />
       </ScrollView>
     );
@@ -253,7 +176,7 @@ export default class Home extends React.Component {
 }
 export class HomeScrollItem extends React.Component {
   render() {
-    const { listType, itemTitle } = this.props
+    const { listType, itemTitle, naviSeeMore } = this.props
     return (
       <View styles={{ flex: 1 }}>
         <View style={stylesItem.ViewItemTitle}>
@@ -261,7 +184,7 @@ export class HomeScrollItem extends React.Component {
           <TouchableOpacity
             style={stylesItem.seeMore}
             onPress={() => {
-              // this.props.navigation.navigate("");
+              this.props.navigation.replace(`${naviSeeMore}`);
             }}
             underlayColor="rgb(255, 255, 255)"
           >
@@ -275,6 +198,7 @@ export class HomeScrollItem extends React.Component {
               style={{ marginLeft: 0 }}
               imgUrl={iconData.imgUrl}
               imgUri={iconData.imgUri}
+              itemParams={iconData.itemParams}
               title={iconData.iconTitle}
               screenNavigate={iconData.screenNavigate}
             />

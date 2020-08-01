@@ -17,7 +17,7 @@ import { userData } from '../../../config/settings';
 const initialState = {
   loading: false,
   error: null,
-  data: null,
+  data: [],
 };
 
 const getListTypeReducers = (state = initialState, action) => {
@@ -25,21 +25,34 @@ const getListTypeReducers = (state = initialState, action) => {
     case GET_LIST_PRODUCT_TYPE:
       return Object.assign({}, state, {
         loading: true,
-        data: null,
+        data: [],
         error: null
       });
 
     case GET_LIST_PRODUCT_TYPE_SUCCESS:
+      let data = []
+      for (let protype of action.response.data) {
+
+        let newProType = {
+          imgUrl: "",
+          imgUri: "http://127.0.0.1:8080/" + protype.typeImg,
+          iconTitle: protype.typeName,
+          itemParams: protype._id,
+          screenNavigate: "",
+          description: protype.description,
+        }
+        data.push(newProType)
+      }
       return Object.assign({}, state, {
         loading: false,
-        data: action.response.data,
+        data: data,
         error: null
       });
 
     case GET_LIST_PRODUCT_TYPE_ERROR:
       return Object.assign({}, state, {
         loading: false,
-        data: null,
+        data: [],
         error: action.error
       });
     default:

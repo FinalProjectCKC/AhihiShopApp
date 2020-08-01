@@ -24,7 +24,6 @@ const errorRes = "Không lấy được dữ liệu"
 function* listProTypeFlow(action) {
   try {
     const response = yield listProTypeApi(action.data)
-    console.log('response',response)
     if (response != undefined && !objectIsNull(response)) {
       if (response.status == 1) {
         yield put({ type: GET_LIST_PRODUCT_TYPE_SUCCESS, response })
