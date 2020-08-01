@@ -7,6 +7,7 @@ export const userData = {
   admin: false,
   token: "",
   username: "",
+  password: "",
   email: "",
   avatarUrl: null,
   address: null,

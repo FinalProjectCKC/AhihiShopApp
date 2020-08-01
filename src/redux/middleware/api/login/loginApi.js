@@ -9,7 +9,10 @@ export function loginApi(input) {
       "Content-Type": "application/json",
       // Authorization: `Bearer ${userData.token}`,
     },
-    body: JSON.stringify(input),
+    body: JSON.stringify({
+      username: input.username,
+      password: input.password
+    }),
   })
     .then((response) => {
       return response.json();

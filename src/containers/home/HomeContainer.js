@@ -2,33 +2,33 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import Home from '../../components/home/Home'
-// import {loginAction,logoutAction} from '../../redux/actions/login/LoginActions'
+import { getListProTypeAction } from '../../redux/actions/home/HomeActions'
 
 class HomeContainer extends React.Component {
     componentDidMount() {
-
-    }
-    componentWillUnmount() {
-
-    }
-    componentDidUpdate() {
-
+        let input = {
+            page: 0,
+            limit: 10
+        }
+        this.props.getListProTypeAction(input)
     }
     render() {
         return <Home {...this.props} />;
-        }
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // loginAction: (user, password) => {
-        //     dispatch(loginAction(user,password))
-        // },
+        getListProTypeAction: (input) => {
+            dispatch(getListProTypeAction(input))
+        },
     };
 }
 const mapStateToProps = (state) => {
     return {
-        
+        errorListProType: state.getListTypeReducers.error,
+        listProTypeData: state.getListTypeReducers.data,
+        loadingListProType: state.getListTypeReducers.loading,
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

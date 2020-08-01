@@ -26,76 +26,15 @@ import FastImage from 'react-native-fast-image'
 import OrderShippingComponent from '../order/OrderShipping'
 import IconMenu from "./IconMenu";
 
-export default class Home extends React.Component {
+export default class ListProduct extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      indexSlide: 0,
-      listProTypeData: [
-        {
-          imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-          imgUri: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
-          iconTitle: "Ahihi",
-          screenNavigate: "",
-        },
-      ],
+      indexSlide: 0
     }
     this.slideImage = React.createRef()
   }
-  componentDidUpdate(prevProps) {
-    if (this.props.error !== prevProps.error && this.props.error !== null) {
-      Alert.alert(
-        "Lỗi",
-        this.props.error,
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-        { cancelable: false }
-      );
-    }
-    if (this.props.listProTypeData !== prevProps.listProTypeData && this.props.error == null && this.props.listProTypeData !== null) {
-      let data = []
-      for (let protype of this.props.listProTypeData) {
-        let newProType = {
-          imgUrl: "",
-          imgUri: "http://127.0.0.1:8080/"+protype.typeImg,
-          // imgUri: "http://127.0.0.1:8080/img/proType/imgType-1596273667867.png",
-          iconTitle: protype.typeName,
-          screenNavigate: "",
-          params: "",
-        }
-        data.push(newProType)
-      }
-      this.setState({
-        listProTypeData: data
-      })
-    }
-  }
-  onChangeSlide(listLength) {
-    let indexSlide = this.state.indexSlide
-    if (indexSlide < listLength) {
-      indexSlide = parseInt(indexSlide) + 1
-    } else {
-      indexSlide = 0
-    }
-    this.setState({ indexSlide: indexSlide }, () => {
-      this.slideImage.current.scrollToIndex(this.state.indexSlide)
-    })
-  }
   render() {
-    const listImage = [{
-      url: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/5d/b0/55/5db05527613c8e6fa76d88abb1b02c66.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/59/ee/34/59ee347f8c614775178b99cd44a1c01e.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/db/09/f0/db09f09594b1f6cf431f51573dd7689f.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/63/e3/72/63e372af804049f16527fcb1f2e55f50.jpg"
-    },]
     const listType = [
       {
         imgUrl: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg",
@@ -158,10 +97,6 @@ export default class Home extends React.Component {
         screenNavigate: "",
       },
     ]
-    setTimeout(() => { this.onChangeSlide(listImage.length) }, 3000)
-    // return (
-    //   <OrderShippingComponent></OrderShippingComponent>
-    // )
     return (
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         {/* header */}
@@ -213,26 +148,17 @@ export default class Home extends React.Component {
           </View>
         </View>
         <View style={styles.header}>
-          <Swiper ref={this.slideImage}>
-            {
-              listImage.map(item =>
-                <View style={styles.slide}>
-                  <Image
-                    defaultSource={require('../../res/images/ic_default.jpg')}
-                    resizeMode='contain'
-                    source={{ uri: item.url }}
-                    style={{
-                      width: Dimensions.get('window').width,
-                      height: Dimensions.get('window').height,
-                    }}
-                  />
-                </View>
-              )
-            }
-          </Swiper>
-          {/* <SwiperImages
-            listImage={listImage}
-            indexSlide={this.state.indexSlide} /> */}
+          <View style={styles.slide}>
+            <Image
+              defaultSource={require('../../res/images/ic_default.jpg')}
+              resizeMode='contain'
+              source={{ uri: item.url }}
+              style={{
+                width: Dimensions.get('window').width,
+                height: Dimensions.get('window').height,
+              }}
+            />
+          </View>
         </View>
         {/* productType */}
         <HomeScrollItem
@@ -240,7 +166,7 @@ export default class Home extends React.Component {
           itemTitle={"Giảm giá đặc biệt"}
         />
         <HomeScrollItem
-          listType={this.state.listProTypeData}
+          listType={listType}
           itemTitle={"Danh mục sản phẩm"}
         />
         <HomeScrollItem
@@ -251,35 +177,19 @@ export default class Home extends React.Component {
     );
   }
 }
-export class HomeScrollItem extends React.Component {
+export class ProductTypeItem extends React.Component {
   render() {
     const { listType, itemTitle } = this.props
     return (
       <View styles={{ flex: 1 }}>
-        <View style={stylesItem.ViewItemTitle}>
-          <Text style={{ flex: 8, fontSize: Sizes.s45, marginLeft: Sizes.s30 }}>{itemTitle}</Text>
-          <TouchableOpacity
-            style={stylesItem.seeMore}
-            onPress={() => {
-              // this.props.navigation.navigate("");
-            }}
-            underlayColor="rgb(255, 255, 255)"
-          >
-            <Text style={stylesItem.seeMoreText}>Xem Thêm</Text>
-          </TouchableOpacity>
-        </View>
-        <ScrollView contentContainerStyle={styles.content} showsHorizontalScrollIndicator={false} horizontal={true} number={2}>
-          {listType.map((iconData) => (
-            <IconMenu
-              {...this.props}
-              style={{ marginLeft: 0 }}
-              imgUrl={iconData.imgUrl}
-              imgUri={iconData.imgUri}
-              title={iconData.iconTitle}
-              screenNavigate={iconData.screenNavigate}
-            />
-          ))}
-        </ScrollView>
+        <IconMenu
+          {...this.props}
+          style={{ marginLeft: 0 }}
+          imgUrl={iconData.imgUrl}
+          imgUri={iconData.imgUri}
+          title={iconData.iconTitle}
+          screenNavigate={iconData.screenNavigate}
+        />
       </View>
     )
   }
@@ -291,12 +201,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: "red"
-  },
-  wrapper: {},
-  slide: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   searchBar: {
     flexDirection: "row",
