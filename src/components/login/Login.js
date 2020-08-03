@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { objectIsNull } from '@dungdang/react-native-basic/src/Functions';
 import { StyleSheet, Dimensions, StatusBar } from "react-native";
-import { isPhone, screen } from '../../config/settings'
+import { isPhone, screen, userData } from '../../config/settings'
 import Loading from '../custom/Loading';
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Sizes } from "@dungdang/react-native-basic";
@@ -36,6 +36,18 @@ export default class Login extends React.Component {
       alert: null,
     };
   }
+  componentWillMount() {
+    if (this.state.remember && userData.password !== "") {
+      this.setState({
+        password: userData.password
+      })
+    }
+    if (this.state.remember && userData.username !== "") {
+      this.setState({
+        username: userData.username
+      })
+    }
+  }
   onLogin() {
     const { erUser, erPass, username, password } = this.state
     if (username == "") {
@@ -49,6 +61,13 @@ export default class Login extends React.Component {
       })
     }
     if (username !== "" && password !== "") {
+      if (this.state.remember) {
+        userData.password = password
+        userData.username = username
+      } else{
+        userData.password = ""
+        userData.username = ""
+      }
       let input = {
         username: username,
         password: password,
@@ -70,157 +89,158 @@ export default class Login extends React.Component {
     }
   }
   render() {
+    let { password, username } = this.state
     return (
       <ImageBackground
         source={Images.bg_login}
-        style={{ width: "100%", height:"100%" }}
+        style={{ width: "100%", height: "100%" }}
       >
         {this.props.loading && <Loading />}
-        <ScrollView style={{ width: "100%", height:"100%", backgroundColor: "rgba(96,96,96 ,0.5)" }}>
-        <View style={styles.container}>
-          <View style={styles.loginForm}>
-            <View style={styles.input}>
-              <InputBox
-                value={this.state.username}
-                leftIcon={Images.ic_user}
-                autoCompleteType='username'
-                onChangeText={(text) =>
-                  this.setState({ username: text, erUser: "" })
-                }
-                title="Tên đăng nhập"
-                onRightIconPress={() => { }}
-              />
-              {this.state.erUser !== "" ? (
-                <Text
-                  style={{
-                    marginTop: Sizes.s10,
-                    fontSize: Sizes.h32,
-                    color: "red",
-                  }}
-                >
-                  {this.state.erUser}
-                </Text>
-              ) : null}
-            </View>
-            <View style={styles.input}>
-              <InputBox
-                value={this.state.password}
-                leftIcon={Images.ic_lock}
-                rightIcon={
-                  this.state.passwordHidden
-                    ? Images.ic_eye_close
-                    : Images.ic_eye
-                }
-                autoCompleteType='password'
-                onChangeText={(text) =>
-                  this.setState({ password: text, erPass: "" })
-                }
-                title="Mật khẩu"
-                secureTextEntry={this.state.passwordHidden}
-                onRightIconPress={() =>
-                  this.setState({
-                    passwordHidden: !this.state
-                      .passwordHidden,
-                  })
-                }
-              />
-              {this.state.erPass !== "" ? (
-                <Text
-                  style={{
-                    marginTop: Sizes.s10,
-                    fontSize: Sizes.h32,
-                    color: "red",
-                  }}
-                >
-                  {this.state.erPass}
-                </Text>
-              ) : null}
-            </View>
-            <View style={styles.remember}>
-              <Icon
-                name={
-                  this.state.remember
-                    ? "check-circle"
-                    : "circle"
-                }
-                size={Sizes.s50}
-                onPress={() => {
-                  this.setState({
-                    remember: !this.state.remember,
-                  });
-                }}
-                color="white"
-                style={{ marginRight: Sizes.s15 }}
-              />
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: Sizes.h32,
-                }}
-              >
-                Ghi nhớ đăng nhập
-								</Text>
-            </View>
-
-            <TouchableHighlight
-              underlayColor="transparent"
-              onPress={() => {
-                this.onLogin()
-              }}
-            // onPress={() => this.props.navigation.navigate('MyModal')}
-            >
-              <View style={styles.button}>
-                <Text style={styles.buttonTitle}>
-                  {this.state.buttonTitle}
-                </Text>
+        <ScrollView style={{ width: "100%", height: "100%", backgroundColor: "rgba(96,96,96 ,0.5)" }}>
+          <View style={styles.container}>
+            <View style={styles.loginForm}>
+              <View style={styles.input}>
+                <InputBox
+                  value={username}
+                  leftIcon={Images.ic_user}
+                  autoCompleteType='username'
+                  onChangeText={(text) =>
+                    this.setState({ username: text, erUser: "" })
+                  }
+                  title="Tên đăng nhập"
+                  onRightIconPress={() => { }}
+                />
+                {this.state.erUser !== "" ? (
+                  <Text
+                    style={{
+                      marginTop: Sizes.s10,
+                      fontSize: Sizes.h32,
+                      color: "red",
+                    }}
+                  >
+                    {this.state.erUser}
+                  </Text>
+                ) : null}
               </View>
-            </TouchableHighlight>
-
-            <TouchableHighlight
-              underlayColor="transparent"
-              style={{
-                alignItems: "center",
-                margin: Sizes.h30,
-              }}
-              onPress={() => {
-                this.props.navigation.navigate("RegisContainer");
-              }}
-            >
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: Sizes.h34,
-                  fontWeight: "bold",
-                  opacity: 0.9,
-                }}
-              >
-                Đăng ký tài khoản
-									</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor="transparent"
-              style={{ alignItems: "center" }}
-              onPress={() => {
-                this.props.navigation.navigate(
-                  "Forget"
-                );
-              }}
-            >
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: Sizes.h34,
-                  fontWeight: "bold",
-                  opacity: 0.9,
-                }}
-              >
-                Quên mật khẩu
+              <View style={styles.input}>
+                <InputBox
+                  value={password}
+                  leftIcon={Images.ic_lock}
+                  rightIcon={
+                    this.state.passwordHidden
+                      ? Images.ic_eye_close
+                      : Images.ic_eye
+                  }
+                  autoCompleteType='password'
+                  onChangeText={(text) =>
+                    this.setState({ password: text, erPass: "" })
+                  }
+                  title="Mật khẩu"
+                  secureTextEntry={this.state.passwordHidden}
+                  onRightIconPress={() =>
+                    this.setState({
+                      passwordHidden: !this.state
+                        .passwordHidden,
+                    })
+                  }
+                />
+                {this.state.erPass !== "" ? (
+                  <Text
+                    style={{
+                      marginTop: Sizes.s10,
+                      fontSize: Sizes.h32,
+                      color: "red",
+                    }}
+                  >
+                    {this.state.erPass}
+                  </Text>
+                ) : null}
+              </View>
+              <View style={styles.remember}>
+                <Icon
+                  name={
+                    this.state.remember
+                      ? "check-circle"
+                      : "circle"
+                  }
+                  size={Sizes.s50}
+                  onPress={() => {
+                    this.setState({
+                      remember: !this.state.remember,
+                    });
+                  }}
+                  color="white"
+                  style={{ marginRight: Sizes.s15 }}
+                />
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: Sizes.h32,
+                  }}
+                >
+                  Ghi nhớ đăng nhập
 								</Text>
-            </TouchableHighlight>
+              </View>
+
+              <TouchableHighlight
+                underlayColor="transparent"
+                onPress={() => {
+                  this.onLogin()
+                }}
+              // onPress={() => this.props.navigation.navigate('MyModal')}
+              >
+                <View style={styles.button}>
+                  <Text style={styles.buttonTitle}>
+                    {this.state.buttonTitle}
+                  </Text>
+                </View>
+              </TouchableHighlight>
+
+              <TouchableHighlight
+                underlayColor="transparent"
+                style={{
+                  alignItems: "center",
+                  margin: Sizes.h30,
+                }}
+                onPress={() => {
+                  this.props.navigation.navigate("RegisContainer");
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: Sizes.h34,
+                    fontWeight: "bold",
+                    opacity: 0.9,
+                  }}
+                >
+                  Đăng ký tài khoản
+									</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                underlayColor="transparent"
+                style={{ alignItems: "center" }}
+                onPress={() => {
+                  this.props.navigation.navigate(
+                    "Forget"
+                  );
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: Sizes.h34,
+                    fontWeight: "bold",
+                    opacity: 0.9,
+                  }}
+                >
+                  Quên mật khẩu
+								</Text>
+              </TouchableHighlight>
+            </View>
           </View>
-        </View>
         </ScrollView>
-        
+
       </ImageBackground>
     );
   }

@@ -15,6 +15,7 @@ import LoginContainer from '../containers/login/LoginContainer';
 import RegisContainer from '../containers/login/RegisContainer';
 import HomeContainer from '../containers/home/HomeContainer';
 import ListProductTypeContainer from '../containers/home/ListProductTypeContainer';
+import ListProductContainer from '../containers/home/ListProductContainer';
 import ProfileContainer from '../containers/profile/ProfileContainer';
 import CartContainer from './cart/CartContainer';
 import NotificationContainer from './notification/NotificationContainer';
@@ -236,6 +237,9 @@ const RootStack = createStackNavigator(
     },
     ListProductTypeContainer: {
       screen: ListProductTypeContainer,
+    },
+    ListProductContainer: {
+      screen: ListProductContainer,
     },
     OrderShipping: {
       screen: OrderShipping,

@@ -32,7 +32,9 @@ export function listProductByTypeApi(input) {
       // Authorization: `Bearer ${userData.token}`,
     },
     body: JSON.stringify({
-      typeName: input.typeName
+      ProTypeId: input.ProTypeId,
+      page: input.page,
+      limit: input.limit
     }),
   })
     .then((response) => {

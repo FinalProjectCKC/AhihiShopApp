@@ -46,15 +46,24 @@ export default class Home extends React.Component {
     }
   }
   onChangeSlide(listLength) {
-    let indexSlide = this.state.indexSlide
-    if (indexSlide < listLength) {
-      indexSlide = parseInt(indexSlide) + 1
-    } else {
-      indexSlide = 0
-    }
-    this.setState({ indexSlide: indexSlide }, () => {
-      this.slideImage.current.scrollToIndex(indexSlide)
-    })
+    // let indexSlide = this.state.indexSlide
+    // if (indexSlide < listLength) {
+    //   indexSlide = parseInt(indexSlide) + 1
+    // } else {
+    //   indexSlide = 0
+    // }
+    this.setState(
+      {
+        indexSlide: ++this.state.indexSlide,
+      },
+      () => {
+        this.slideImage.current.scrollToIndex(this.state.indexSlide)
+      }
+    );
+    // this.setState({ indexSlide: indexSlide }, () => {
+      
+    // })
+    return
   }
   render() {
     const listImage = [{

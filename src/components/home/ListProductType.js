@@ -132,7 +132,7 @@ export default class ListProductType extends React.Component {
                     iconTitle={item.iconTitle}
                     imgUri={item.imgUri}
                     description={item.description}
-                    ProType={item._id}
+                    ProTypeId={item.itemParams}
                   />
                 )}
               />
@@ -149,13 +149,13 @@ class Item extends React.Component {
     super(props);
   }
   render() {
-    const { iconTitle, imgUri, description, ProType } = this.props;
+    const { iconTitle, imgUri, description, ProTypeId } = this.props;
 
     return (
       <TouchableOpacity
         onPress={() =>
-          this.props.navigation.navigate("DetailsListNew", {
-            ProType,
+          this.props.navigation.navigate("ListProductContainer", {
+            ProTypeId,
           })
         }
       >
