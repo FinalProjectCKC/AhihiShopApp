@@ -10,4 +10,11 @@ export const API_URL = {
   getAllProduct: API + "/Product/GetAll",
   getListProductByType: API + "/Product/GetByProType",
   getDetailProduct: API + "/Product/GetByID",
+  
+  getCart: API + "/Cart/GetCart",
+  addToCart: API + "/Cart/AddToCart",
+  removeFromCart : API + "/Cart/RemoveFromCart",
+  editQuanTi: API + "/Cart/EditQuanTi",
+
+  newOrder: API + "/Order/NewOrder",
 }

@@ -48,14 +48,14 @@ export function listProductByTypeApi(input) {
     });
 }
 export function detailProductApi(input) {
-  return fetch(API_URL.login, {
+  return fetch(API_URL.getDetailProduct, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       // Authorization: `Bearer ${userData.token}`,
     },
     body: JSON.stringify({
-      productID: input.productID,
+      productId: input.productId,
     }),
   })
     .then((response) => {

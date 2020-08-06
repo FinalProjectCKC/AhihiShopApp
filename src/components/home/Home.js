@@ -46,23 +46,13 @@ export default class Home extends React.Component {
     }
   }
   onChangeSlide(listLength) {
-    // let indexSlide = this.state.indexSlide
-    // if (indexSlide < listLength) {
-    //   indexSlide = parseInt(indexSlide) + 1
-    // } else {
-    //   indexSlide = 0
-    // }
-    this.setState(
-      {
-        indexSlide: ++this.state.indexSlide,
-      },
-      () => {
-        this.slideImage.current.scrollToIndex(this.state.indexSlide)
-      }
-    );
-    // this.setState({ indexSlide: indexSlide }, () => {
-      
-    // })
+    let indexSlide = this.state.indexSlide
+    if (indexSlide < listLength) {
+      indexSlide = parseInt(indexSlide) + 1
+    } else {
+      indexSlide = 0
+    }
+    this.setState({ indexSlide: indexSlide })
     return
   }
   render() {
@@ -156,9 +146,6 @@ export default class Home extends React.Component {
               )
             }
           </Swiper>
-          {/* <SwiperImages
-            listImage={listImage}
-            indexSlide={this.state.indexSlide} /> */}
         </View>
         {/* productType */}
         <HomeScrollItem
@@ -204,7 +191,8 @@ export class HomeScrollItem extends React.Component {
           {listType.map((iconData) => (
             <IconMenu
               {...this.props}
-              style={{ marginLeft: 0 }}
+              style={{ marginLeft: 0,
+              }}
               imgUrl={iconData.imgUrl}
               imgUri={iconData.imgUri}
               itemParams={iconData.itemParams}

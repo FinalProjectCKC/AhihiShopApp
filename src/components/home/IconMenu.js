@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
 	icon: {
 		width: Sizes.s160,
 		height: Sizes.s160,
-		// resizeMode: "contain",
+		backgroundColor: "#ffaf",
 		resizeMode: "cover",
 		marginTop: Sizes.s10,
 		marginBottom: Sizes.s15,

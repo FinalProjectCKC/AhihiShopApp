@@ -1,36 +1,37 @@
-import React from 'react';
-import { Button, Image, View, Text } from 'react-native';
-import { createAppContainer } from 'react-navigation'; // 1.0.0-beta.27
-import { createStackNavigator } from 'react-navigation-stack';
-import Images from "../res/images";
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import Icon from "react-native-vector-icons/FontAwesome5";
+import React from 'react'
+import { Button, Image, View, Text } from 'react-native'
+import { createAppContainer } from 'react-navigation' // 1.0.0-beta.27
+import { createStackNavigator } from 'react-navigation-stack'
+import Images from "../res/images"
+import { createBottomTabNavigator } from 'react-navigation-tabs'
+import Icon from "react-native-vector-icons/FontAwesome5"
 
-import { userData } from "../config/settings";
+import { userData } from "../config/settings"
 
-import WelcomeScreen from '../components/welcomeScreen/WelcomeScreen';
+import WelcomeScreen from '../components/welcomeScreen/WelcomeScreen'
 
 //User
-import LoginContainer from '../containers/login/LoginContainer';
-import RegisContainer from '../containers/login/RegisContainer';
-import HomeContainer from '../containers/home/HomeContainer';
-import ListProductTypeContainer from '../containers/home/ListProductTypeContainer';
-import ListProductContainer from '../containers/home/ListProductContainer';
-import ProfileContainer from '../containers/profile/ProfileContainer';
-import CartContainer from './cart/CartContainer';
-import NotificationContainer from './notification/NotificationContainer';
+import LoginContainer from '../containers/login/LoginContainer'
+import RegisContainer from '../containers/login/RegisContainer'
+import HomeContainer from '../containers/home/HomeContainer'
+import ListProductTypeContainer from '../containers/home/ListProductTypeContainer'
+import DetailsProductContainer from '../containers/home/DetailsProductContainer'
+import ListProductContainer from '../containers/home/ListProductContainer'
+import ProfileContainer from '../containers/profile/ProfileContainer'
+import CartContainer from './cart/CartContainer'
+import NotificationContainer from './notification/NotificationContainer'
 //Order
-import OrderShipping from '../components/order/OrderShipping';
+import OrderShipping from '../components/order/OrderShipping'
 //Admin
-import ControlContainer from './control/ControlContainer';
-import OrderContainer from './order/OrderContainer';
+import ControlContainer from './control/ControlContainer'
+import OrderContainer from './order/OrderContainer'
 
 const RouteUser = {
   Home: {
     screen: HomeContainer,
     navigationOptions: {
       tabBarLabel: "Trang chủ",
-      tabBarOptions: { activeTintColor:'red' },
+      tabBarOptions: { activeTintColor: 'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -67,7 +68,7 @@ const RouteUser = {
     screen: NotificationContainer,
     navigationOptions: {
       tabBarLabel: "Thông báo",
-      tabBarOptions: { activeTintColor:'red' },
+      tabBarOptions: { activeTintColor: 'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -86,7 +87,7 @@ const RouteUser = {
     screen: CartContainer,
     navigationOptions: {
       tabBarLabel: "Giỏ hàng",
-      tabBarOptions: { activeTintColor:'red' },
+      tabBarOptions: { activeTintColor: 'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -105,7 +106,7 @@ const RouteUser = {
     screen: ProfileContainer,
     navigationOptions: {
       tabBarLabel: "Tôi",
-      tabBarOptions: { activeTintColor:'red' },
+      tabBarOptions: { activeTintColor: 'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -120,13 +121,13 @@ const RouteUser = {
       ),
     },
   },
-};
+}
 const RouteAdmin = {
   Home: {
     screen: HomeContainer,
     navigationOptions: {
       tabBarLabel: "Trang chủ",
-      tabBarOptions: { activeTintColor:'red' },
+      tabBarOptions: { activeTintColor: 'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -145,7 +146,7 @@ const RouteAdmin = {
     screen: NotificationContainer,
     navigationOptions: {
       tabBarLabel: "Thông báo",
-      tabBarOptions: { activeTintColor:'red' },
+      tabBarOptions: { activeTintColor: 'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -161,48 +162,48 @@ const RouteAdmin = {
     },
   },
   Control: {
-		screen: ControlContainer,
-		navigationOptions: {
+    screen: ControlContainer,
+    navigationOptions: {
       tabBarLabel: "Quản lý",
-      tabBarOptions: { activeTintColor:'red' },
-			tabBarIcon: ({ tintColor }) => (
-				<Image
-					style={{
-						resizeMode: "contain",
-						width: 25,
-						height: 25,
-						tintColor: tintColor,
-					}}
-					source={Images.ic_insight_inactive}
-					color={tintColor}
-				/>
-			),
-		},
-	},
+      tabBarOptions: { activeTintColor: 'red' },
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          style={{
+            resizeMode: "contain",
+            width: 25,
+            height: 25,
+            tintColor: tintColor,
+          }}
+          source={Images.ic_insight_inactive}
+          color={tintColor}
+        />
+      ),
+    },
+  },
   Order: {
-		screen: NotificationContainer,
-		navigationOptions: {
+    screen: NotificationContainer,
+    navigationOptions: {
       tabBarLabel: "Đơn hàng",
-      tabBarOptions: { activeTintColor:'red' },
-			tabBarIcon: ({ tintColor }) => (
-				<Image
-					style={{
-						resizeMode: "contain",
-						width: 25,
-						height: 25,
-						tintColor: tintColor,
-					}}
-					source={require("../res/images/ic_task_inactive.png")}
-					color={tintColor}
-				/>
-			),
-		},
-	},
+      tabBarOptions: { activeTintColor: 'red' },
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          style={{
+            resizeMode: "contain",
+            width: 25,
+            height: 25,
+            tintColor: tintColor,
+          }}
+          source={require("../res/images/ic_task_inactive.png")}
+          color={tintColor}
+        />
+      ),
+    },
+  },
   Profiles: {
     screen: ProfileContainer,
     navigationOptions: {
       tabBarLabel: "Tôi",
-      tabBarOptions: { activeTintColor:'red' },
+      tabBarOptions: { activeTintColor: 'red' },
       tabBarIcon: ({ tintColor }) => (
         <Image
           style={{
@@ -217,13 +218,13 @@ const RouteAdmin = {
       ),
     },
   },
-};
+}
 
 const AppNavigator = createBottomTabNavigator(
   userData.admin ? RouteAdmin : RouteUser,
-);
+)
 
-const TAB = createAppContainer(AppNavigator);
+const TAB = createAppContainer(AppNavigator)
 const RootStack = createStackNavigator(
   {
     Init: {
@@ -241,6 +242,9 @@ const RootStack = createStackNavigator(
     ListProductContainer: {
       screen: ListProductContainer,
     },
+    DetailsProductContainer: {
+      screen: DetailsProductContainer,
+    },
     OrderShipping: {
       screen: OrderShipping,
     },
@@ -252,6 +256,6 @@ const RootStack = createStackNavigator(
     mode: 'modal',
     headerMode: 'none',
   },
-);
+)
 
-export default createAppContainer(RootStack);
+export default createAppContainer(RootStack)

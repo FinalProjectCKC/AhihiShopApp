@@ -218,9 +218,9 @@ class Item extends React.Component {
     return (
       <TouchableOpacity
         onPress={() =>{
-          // this.props.navigation.navigate("WarningDetails", {
-          //   productId,
-          // })
+          this.props.navigation.navigate("DetailsProductContainer", {
+            productId,
+          })
         }
         }
         style={styles.content}
@@ -231,9 +231,7 @@ class Item extends React.Component {
             source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
           />
           <Text style={styles.title}>{productName}</Text>
-          <View style={styles.time}>
             <Text style={styles.textPrice}>Giá: {price} VND</Text>
-          </View>
         </View>
       </TouchableOpacity>
     );

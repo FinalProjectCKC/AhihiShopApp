@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: Sizes.s30,
+    backgroundColor: "#ffaa",
     width: "100%",
     height: (width - Sizes.s30) * (360 / 640),
     alignItems: "center",

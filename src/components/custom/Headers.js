@@ -171,8 +171,7 @@ export default class Headers extends React.Component {
 				return (
 					<View
 						style={{
-							backgroundColor: "#ffffff",
-							paddingVertical: Sizes.s30,
+							paddingVertical: Sizes.s10,
 						}}
 					>
 						<StatusBar barStyle="dark-content" />
