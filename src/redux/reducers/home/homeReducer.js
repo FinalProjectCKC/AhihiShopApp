@@ -38,7 +38,7 @@ const getListTypeReducers = (state = initialState, action) => {
           imgUri: "http://127.0.0.1:8080/" + protype.typeImg,
           iconTitle: protype.typeName,
           itemParams: protype._id,
-          screenNavigate: "",
+          screenNavigate: "ListProductContainer",
           description: protype.description,
         }
         data.push(newProType)

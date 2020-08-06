@@ -34,6 +34,7 @@ const Images = {
   ic_correct: require("./ic_correct.png"),
   ic_check_mark: require("./check-mark.png"),
   ic_credit_card: require("./credit.png"),
+  ic_cart_empty: require("./cart-empty.png"),
 
   ic_dvc: require("./ic_DVC.png"),
   ic_DichVuCong: require("./ic_DichVuCong.png"),
@@ -122,5 +123,10 @@ const Images = {
   gif_shipping: require("./Shipping.gif"),
 
   shopping_cart: require("./shopping-cart.png"),
+
+  sl_man: require("./man.png"),
+  sl_bag: require("./bag.png"),
+  sl_woman: require("./woman.png"),
+  sl_featuer: require("./feature.png"),
 };
 export default Images;

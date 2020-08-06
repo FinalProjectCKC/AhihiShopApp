@@ -82,7 +82,7 @@ export default class ListProductType extends React.Component {
           <Headers
             title="Danh sách loại sản phẩm"
             onPressBackButton={() => {
-              this.props.navigation.navigate("MyModal");
+              this.props.navigation.goBack();
             }}
           />
           {/* Have a nice day =)) */}

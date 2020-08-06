@@ -46,7 +46,7 @@ export function removeFormCartApi(input) {
     });
 }
 export function addToCartApi(input) {
-  console.log("ahihi", input.productId)
+  console.log("ahihi", input)
   return fetch(API_URL.addToCart, {
     method: "POST",
     headers: {
@@ -55,6 +55,7 @@ export function addToCartApi(input) {
     },
     body: JSON.stringify({
       productId: input.productId,
+      quan: input.quan,
     }),
   })
     .then((response) => {

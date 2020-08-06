@@ -31,6 +31,8 @@ export default class productData extends React.Component {
       productId: "",
       description: "",
       unit: "",
+      proSize: "XL",
+      orderQuan: 1,
       showModal: false,
     };
   }
@@ -100,24 +102,22 @@ export default class productData extends React.Component {
       );
     }
   }
-  showModal() {
-    return (
-      <View style={{ flex: 1, backgroundColor: "#acc" }}>
-        <View style={{ width: "80%", height: "60%", backgroundColor: "#fff" }}>
-          <TouchableOpacity style={styles.bottomButton} onPress={() => {
-            this.props.addToCartAction({ productId })
-          }}>
-            <Text style={styles.addToCart}>THÊM VÀO GIỎ HÀNG</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
+  proSizePress(proSize) {
+    this.setState({
+      proSize: proSize,
+    });
+  }
+  proSizeStyle(proSize) {
+    if (proSize == this.state.proSize) {
+      return styles.boxSizeChose;
+    }
+    return styles.boxSize;
   }
   render() {
     const Table = [
       {
         key: "Kho",
-        value: "1000"
+        value: `${this.state.quan}`
       },
       {
         key: "Thương hiệu",
@@ -136,19 +136,20 @@ export default class productData extends React.Component {
         value: "Tung Của"
       },
     ]
+    const ProductSize = ["XL", "L", "M", "S"]
     const { navigation } = this.props;
-    const { productData, productName, productImg, quan, price, description, productId } = this.state;
+    const { productData, productName, productImg, quan, price, description, orderQuan, productId } = this.state;
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFF" }}>
         {this.props.loading && <Loading backgroundColor={"none"} />}
-        <ScrollView style={styles.container}>
-          <Headers
-            name="canhbao"
-            title="Chi tiết sản phẩm"
-            onPressBackButton={() => {
-              this.props.navigation.goBack();
-            }}
-          />
+        <Headers
+          name="canhbao"
+          title="Chi tiết sản phẩm"
+          onPressBackButton={() => {
+            this.props.navigation.goBack();
+          }}
+        />
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
           <View>
             <Image
               style={styles.image}
@@ -158,7 +159,60 @@ export default class productData extends React.Component {
               <Text style={styles.title}>{productName}</Text>
               <Text style={styles.textPrice}>Giá: {price} VND</Text>
             </View>
+            <View style={{ marginLeft: Sizes.s25, flexDirection: "row", }}>
+              {ProductSize.map((item) => (
+                <TouchableOpacity
+                  style={this.proSizeStyle(item)}
+                  onPress={() => {
+                    this.proSizePress(item);
+                  }}>
+                  <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", }}>{item}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <View style={{ marginLeft: Sizes.s25, marginTop: Sizes.s25, flexDirection: "row", }}>
+              <TouchableOpacity
+                style={styles.btn_IDcrement}
+                disabled={(this.state.orderQuan < 2)}
+                onPress={() => {
+                  this.setState({
+                    orderQuan: --this.state.orderQuan
+                  })
+                }}>
+                <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", }}>-</Text>
+              </TouchableOpacity>
+              <View style={{
+                justifyContent: "center",
+                alignContent: "center",
+                alignItems: "center",
+                borderWidth: 1,
+                height: Sizes.s75,
+                borderColor: "black",
+              }}>
+                <TextInput
+                  style={styles.orderQuan}
+                  onChangeText={(text) => {
+                    this.setState({ orderQuan: text });
+                  }}
+                  keyboardType = 'numeric'
+                  value={this.state.orderQuan}
+                  defaultValue={this.state.orderQuan}
+                >{this.state.orderQuan}</TextInput>
+              </View>
+              <TouchableOpacity
+                style={styles.btn_IDcrement}
+                disabled ={(this.state.orderQuan >= this.state.quan)}
+                onPress={() => {
+                  this.setState({
+                    orderQuan: ++this.state.orderQuan
+                  })
+                }}
+              >
+                <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", }}>+</Text>
+              </TouchableOpacity>
+            </View>
             <View style={{ marginTop: Sizes.s20 }}>
+              <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", marginLeft: Sizes.s35 }}>Thông tin sản phẩm</Text>
               {Table.map((item) => (
                 <View style={styles.table}>
                   <View style={styles.tableRow}>
@@ -173,7 +227,7 @@ export default class productData extends React.Component {
           </View>
         </ScrollView>
         <TouchableOpacity style={styles.bottomButton} onPress={() => {
-          // this.props.addToCartAction({ productId })
+          this.props.addToCartAction({ productId, quan: orderQuan })
           this.setState({ showModal: true })
         }}>
           <Text style={styles.addToCart}>THÊM VÀO GIỎ HÀNG</Text>
@@ -197,10 +251,12 @@ const styles = StyleSheet.create({
     borderColor: "#EFEFEF",
   },
   table: {
-    width: "80%",
+    width: "90%",
     height: Sizes.s60,
     flexDirection: "row",
     marginLeft: Sizes.s35,
+    borderTopColor: "black",
+    borderTopWidth: 1,
   },
   tableRow: {
     flex: 1,
@@ -232,6 +288,42 @@ const styles = StyleSheet.create({
     fontSize: Sizes.s35,
     fontWeight: "bold",
     fontFamily: 'Roboto',
+  },
+  boxSizeChose: {
+    borderWidth: 2,
+    height: Sizes.s75,
+    marginLeft: Sizes.s15,
+    width: Sizes.s75,
+    borderColor: "blue",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#828282",
+  },
+  boxSize: {
+    borderWidth: 1,
+    height: Sizes.s75,
+    marginLeft: Sizes.s15,
+    width: Sizes.s75,
+    borderColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#828282",
+  },
+  orderQuan: {
+    marginLeft: Sizes.s80,
+    height: Sizes.s75,
+    width: Sizes.s140,
+    fontSize: Sizes.h30,
+    color: 'black'
+  },
+  btn_IDcrement: {
+    borderWidth: 1,
+    height: Sizes.s75,
+    width: Sizes.s75,
+    borderColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "#828282",
   },
   textPrice: {
     marginTop: Sizes.s10,

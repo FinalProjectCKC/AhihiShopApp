@@ -21,21 +21,62 @@ import {
 import Images from "../../res/images";
 import { isPhone, screen } from '../../config/settings'
 import Swiper from '../custom/Swiper'
-import SwiperImages from '../custom/SwiperImages'
-import FastImage from 'react-native-fast-image'
 import OrderShippingComponent from '../order/OrderShipping'
 import IconMenu from "./IconMenu";
+import Slideshow from 'react-native-image-slider-show';
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       indexSlide: 0,
+      listImage: [
+        {
+          title: ' ',
+          caption: ' ',
+          url: require('../../res/images/bag.png'),
+        },
+        {
+          title: ' ',
+          caption: ' ',
+          url: require('../../res/images/blog-7.jpg'),
+        },
+        {
+          title: ' ',
+          caption: ' ',
+          url: require('../../res/images/blog-8.jpg'),
+        },
+        {
+          title: ' ',
+          caption: ' ',
+          url: require('../../res/images/man.png'),
+        },
+        {
+          title: ' ',
+          caption: ' ',
+          url: require('../../res/images/woman.png'),
+        },
+        {
+          title: ' ',
+          caption: ' ',
+          url: require('../../res/images/feature.png'),
+        },
+      ],
     }
-    this.slideImage = React.createRef()
+  }
+  componentWillMount() {
+    this.setState({
+      interval: setInterval(() => {
+        this.setState({
+          indexSlide: this.state.indexSlide === this.state.listImage.length ? 0 : this.state.indexSlide + 1
+        });
+      }, 3000)
+    });
+  }
+  componentWillUnmount() {
+    clearInterval(this.state.interval);
   }
   componentDidUpdate(prevProps) {
-    console.log("111", this.state.indexSlide)
     if (this.props.error !== prevProps.error && this.props.error !== null) {
       Alert.alert(
         "Lỗi",
@@ -45,39 +86,8 @@ export default class Home extends React.Component {
       );
     }
   }
-  onChangeSlide(listLength) {
-    let indexSlide = this.state.indexSlide
-    if (indexSlide < listLength) {
-      indexSlide = parseInt(indexSlide) + 1
-    } else {
-      indexSlide = 0
-    }
-    this.setState({ indexSlide: indexSlide })
-    return
-  }
   render() {
-    const listImage = [{
-      url: "https://i.pinimg.com/236x/e9/b7/7b/e9b77b9e184e99027f0905e1984e74eb.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/5d/b0/55/5db05527613c8e6fa76d88abb1b02c66.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/59/ee/34/59ee347f8c614775178b99cd44a1c01e.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/db/09/f0/db09f09594b1f6cf431f51573dd7689f.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/63/e3/72/63e372af804049f16527fcb1f2e55f50.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/59/ee/34/59ee347f8c614775178b99cd44a1c01e.jpg"
-    },
-    {
-      url: "https://i.pinimg.com/236x/db/09/f0/db09f09594b1f6cf431f51573dd7689f.jpg"
-    },]
-    setTimeout(() => { this.onChangeSlide(listImage.length) }, 7000)
+    let { listImage, indexSlide } = this.state
     return (
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         {/* header */}
@@ -129,36 +139,25 @@ export default class Home extends React.Component {
           </View>
         </View>
         <View style={styles.header}>
-          <Swiper ref={this.slideImage}>
-            {
-              listImage.map(item =>
-                <View style={styles.slide}>
-                  <Image
-                    defaultSource={require('../../res/images/ic_default.jpg')}
-                    resizeMode='contain'
-                    source={{ uri: item.url }}
-                    style={{
-                      width: Dimensions.get('window').width,
-                      height: Dimensions.get('window').height,
-                    }}
-                  />
-                </View>
-              )
-            }
-          </Swiper>
+          <Slideshow
+            height={Sizes.s340 * 1.2}
+            arrowSize={1}
+            dataSource={listImage}
+            position={indexSlide}
+            onPositionChanged={indexSlide => this.setState({ indexSlide })} />
         </View>
         {/* productType */}
         <HomeScrollItem
           {...this.props}
           listType={this.props.listProTypeData}
-          itemTitle={"Giảm giá đặc biệt"}
-          naviSeeMore=""
+          itemTitle={"Danh mục sản phẩm"}
+          naviSeeMore="ListProductTypeContainer"
         />
         <HomeScrollItem
           {...this.props}
           listType={this.props.listProTypeData}
-          itemTitle={"Danh mục sản phẩm"}
-          naviSeeMore="ListProductTypeContainer"
+          itemTitle={"Giảm giá đặc biệt"}
+          naviSeeMore=""
         />
         <HomeScrollItem
           {...this.props}
@@ -191,7 +190,8 @@ export class HomeScrollItem extends React.Component {
           {listType.map((iconData) => (
             <IconMenu
               {...this.props}
-              style={{ marginLeft: 0,
+              style={{
+                marginLeft: 0,
               }}
               imgUrl={iconData.imgUrl}
               imgUri={iconData.imgUri}
@@ -208,7 +208,7 @@ export class HomeScrollItem extends React.Component {
 const styles = StyleSheet.create({
   header: {
     // width: "100%",
-    height: isPhone ? Sizes.s340 * 1.2 : Sizes.s340,
+    height: Sizes.s340,
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: "red"
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
   },
   content: {
     // flex: 1,
-    width: "165%",
+    width: "100%",
     height: screen.width * 0.7,
     // height: isPhone ? Sizes.s340 * 1.3 : Sizes.s340 + Sizes.s120,
     // marginTop: Sizes.s30,

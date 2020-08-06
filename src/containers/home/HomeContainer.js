@@ -8,7 +8,7 @@ class HomeContainer extends React.Component {
     componentDidMount() {
         let input = {
             page: 0,
-            limit: 10
+            limit: 6
         }
         this.props.getListProTypeAction(input)
     }
