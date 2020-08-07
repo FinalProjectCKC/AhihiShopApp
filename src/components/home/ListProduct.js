@@ -24,21 +24,25 @@ export default class ListProduct extends React.Component {
       ListProduct: [],
       page: 1,
       limit: 4,
+      typeImg: "",
+      description: "",
       searchText: null,
       list: [],
       tieuDe: "",
       header: "",
+      ProTypeId: "",
     };
   }
   componentDidMount() {
     this.loadListProduct();
   }
   loadListProduct() {
-    // this.props.getListProductAction({
-    //   page: this.state.page,
-    //   limit: this.state.limit,
-    //   tieuDe: this.state.tieuDe,
-    // });
+    this.props.getListProductByTypeAction({
+      ProTypeId: this.state.ProTypeId,
+      page: this.state.page,
+      limit: this.state.limit,
+      // tieuDe: this.state.tieuDe,
+    });
   }
   loadMore() {
     this.setState(
@@ -90,6 +94,9 @@ export default class ListProduct extends React.Component {
         {
           ListProduct: this.state.ListProduct.concat(this.props.listProductData.product),
           header: this.props.listProductData.typeName,
+          typeImg: this.props.listProductData.typeImg,
+          description: this.props.listProductData.description,
+          ProTypeId: this.props.listProductData.typeId,
         },
         () => {
           this.getUnique(this.state.ListProduct, '_id')
@@ -101,28 +108,29 @@ export default class ListProduct extends React.Component {
     }
   }
   loadData() {
-    // this.props.getListProductAction({
-    //   page: this.state.page,
-    //   limit: this.state.limit,
-    //   tieuDe: this.state.searchText,
-    // });
+    this.props.getListProductByTypeAction({
+      ProTypeId: this.state.ProTypeId,
+      page: this.state.page,
+      limit: this.state.limit,
+    });
   }
   loadMore() {
-    // this.setState(
-    //   {
-    //     page: ++this.state.page,
-    //   },
-    //   () => {
-    //     this.props.getListProductAction({
-    //       page: this.state.page,
-    //       limit: this.state.limit,
-    //       tieuDe: this.state.tieuDe
-    //     });
-    //   }
-    // );
+    this.setState(
+      {
+        page: ++this.state.page,
+      },
+      () => {
+        this.props.getListProductByTypeAction({
+          ProTypeId: this.state.ProTypeId,
+          page: this.state.page,
+          limit: this.state.limit,
+        });
+      }
+    );
   }
   render() {
     const { navigation } = this.props;
+    const { typeImg, description } = this.state
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFF" }}>
         {this.props.loading && <Loading backgroundColor={"none"} />}
@@ -168,7 +176,7 @@ export default class ListProduct extends React.Component {
                       {
                         ListProduct: [],
                         page: 1,
-                        limit: 10,
+                        limit: 5,
                         searchText: text,
                       },
                       () => {
@@ -180,29 +188,60 @@ export default class ListProduct extends React.Component {
               </View>
             </View>
           </Headers>
-          <FlatList
-            scrollEnabled={!this.props.loading}
-            style={styles.new}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item) => item.thongBaoID}
-            data={this.state.ListProduct}
-            refreshing={false}
-            numColumns={2}
-            onMomentumScrollEnd={() => this.loadMore()}
-            onRefresh={() => this.reloadList()}
-            renderItem={({ item }) => (
-              <Item
-                {...this.props}
-                productName={item.productName}
-                price={item.price}
-                description={item.description}
-                quan={item.quan}
-                productImg={item.productImg}
-                unit={item.unit}
-                productId={item._id}
-              />
-            )}
-          />
+          {this.state.ListProduct.length === 0 ?
+            <View style={{
+              borderTopWidth: 1,
+              borderTopColor: '#EFEFEF',
+              marginTop: Sizes.s20,
+              width: '100%',
+              paddingHorizontal: Sizes.s30,
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Text style={{
+                fontFamily: 'Roboto-Regular',
+                fontSize: Sizes.s35,
+                color: '#ABAAAC'
+              }}>Không có sản phẩm nào</Text>
+              {
+                this.state.isShowMenu &&
+                <TouchableOpacity
+                  onPress={() => this.setState({ isShowMenu: false })}
+                  style={{
+                    width: Dimensions.get('window').width,
+                    flex: 1,
+                    backgroundColor: '#00000060',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    height: Dimensions.get('window').height
+                  }} />
+              }
+            </View> :
+            <FlatList
+              scrollEnabled={!this.props.loading}
+              style={styles.new}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item) => item.thongBaoID}
+              data={this.state.ListProduct}
+              refreshing={false}
+              numColumns={2}
+              onMomentumScrollEnd={() => this.loadMore()}
+              onRefresh={() => this.reloadList()}
+              renderItem={({ item }) => (
+                <Item
+                  {...this.props}
+                  productName={item.productName}
+                  price={item.price}
+                  description={item.description}
+                  quan={item.quan}
+                  productImg={item.productImg}
+                  unit={item.unit}
+                  productId={item._id}
+                />
+              )}
+            />}
         </View>
       </SafeAreaView>
     );
@@ -217,7 +256,7 @@ class Item extends React.Component {
 
     return (
       <TouchableOpacity
-        onPress={() =>{
+        onPress={() => {
           this.props.navigation.navigate("DetailsProductContainer", {
             productId,
           })
@@ -225,13 +264,13 @@ class Item extends React.Component {
         }
         style={styles.content}
       >
-        <View style={{margin: 5}}>
+        <View style={{ margin: 5 }}>
           <Image
             style={styles.image}
             source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
           />
           <Text style={styles.title}>{productName}</Text>
-            <Text style={styles.textPrice}>Giá: {price} VND</Text>
+          <Text style={styles.textPrice}>Giá: {price} VND</Text>
         </View>
       </TouchableOpacity>
     );
@@ -252,7 +291,7 @@ const styles = StyleSheet.create({
   },
   content: {
     // marginTop: Sizes.s10,
-    width:"50%",
+    width: "50%",
     borderBottomWidth: 1,
     borderBottomColor: "#EFEFEF",
     // marginBottom: Sizes.s10,

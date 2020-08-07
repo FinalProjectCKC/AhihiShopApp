@@ -8,7 +8,7 @@ class ListProductTypeContainer extends React.Component {
     componentDidMount() {
         let input = {
             page: 0,
-            limit: 1
+            limit: 5
         }
         this.props.getListProTypeAction(input)
     }

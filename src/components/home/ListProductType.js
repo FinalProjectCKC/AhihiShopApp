@@ -20,8 +20,8 @@ export default class ListProductType extends React.Component {
     super(props);
     this.state = {
       listProductType: [],
-      page: 0,
-      limit: 1,
+      page: 1,
+      limit: 5,
       refreshing: false,
     };
   }
@@ -58,13 +58,29 @@ export default class ListProductType extends React.Component {
       }
     );
   };
+  getUnique(arr, comp) {
+    // store the comparison  values in array
+    const unique = arr
+      .map((e) => e[comp])
 
+      // store the indexes of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+
+      // eliminate the false indexes & return unique objects
+      .filter((e) => arr[e])
+      .map((e) => arr[e]);
+    this.setState({
+      newsList: unique,
+    });
+  }
   componentDidUpdate(prevProps) {
+    console.log(this.props.listProTypeData)
     if (prevProps.listProTypeData !== this.props.listProTypeData && this.props.error == null) {
       if (!arrayIsEmpty(this.props.listProTypeData)) {
         this.setState({
           listProductType: this.state.listProductType.concat(this.props.listProTypeData),
-          // listProductType: this.props.listProTypeData,
+        }, () => {
+          this.getUnique(this.state.listProductType, "itemParams");
         })
       }
     }
@@ -82,7 +98,7 @@ export default class ListProductType extends React.Component {
           <Headers
             title="Danh sách loại sản phẩm"
             onPressBackButton={() => {
-              this.props.navigation.goBack();
+              this.props.navigation.replace('MyModal');
             }}
           />
           {/* Have a nice day =)) */}
@@ -123,7 +139,9 @@ export default class ListProductType extends React.Component {
                 showsVerticalScrollIndicator={false}
                 keyExtractor={(item) => item._id}
                 data={this.state.listProductType}
+                style={styles.new}
                 refreshing={false}
+                numColumns={2}
                 onMomentumScrollEnd={() => this.loadMore()}
                 onRefresh={() => this.reloadList()}
                 renderItem={({ item }) => (
@@ -153,6 +171,7 @@ class Item extends React.Component {
 
     return (
       <TouchableOpacity
+        style={{ flex: 1 }}
         onPress={() =>
           this.props.navigation.navigate("ListProductContainer", {
             ProTypeId,
@@ -160,14 +179,14 @@ class Item extends React.Component {
         }
       >
         <View style={styles.content}>
-          <Text style={styles.title}>{iconTitle}</Text>
-          <View style={styles.time}>
-            <Text style={styles.description}>{description}</Text>
-          </View>
           <Image
             style={styles.image}
             source={{ uri: `${imgUri}` }}
           />
+          <Text style={styles.title}>{iconTitle}</Text>
+          <View style={styles.time}>
+            {/* <Text style={styles.description}>{description}</Text> */}
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -181,12 +200,13 @@ const styles = StyleSheet.create({
   },
   new: {
     flex: 1,
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: Sizes.s20,
+    marginRight: Sizes.s20,
     // borderBottomColor: 'lightgray',
     // borderBottomWidth: 1
   },
   content: {
+    width: "90%",
     marginTop: Sizes.s10,
     borderBottomWidth: 1,
     borderBottomColor: "#EFEFEF",
@@ -198,7 +218,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   image: {
-    marginTop: Sizes.s30,
+    // marginTop: Sizes.s30,
     backgroundColor: "#ffaa",
     width: "100%",
     height: (width - Sizes.s30) * (360 / 640),
