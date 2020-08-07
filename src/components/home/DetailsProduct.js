@@ -226,12 +226,52 @@ export default class productData extends React.Component {
             </View>
           </View>
         </ScrollView>
-        <TouchableOpacity style={styles.bottomButton} onPress={() => {
+        <View style={styles.buttonView}>
+              <TouchableOpacity
+                style={styles.editBtn}
+                onPress={() => {
+                  this.props.addToCartAction({ productId, quan: orderQuan })
+                  this.setState({ showModal: true })
+                }}
+                underlayColor="rgb(255, 255, 255)"
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <View style={{ flexDirection: "row" }}>
+                    {/* <Image
+										source={Images.ic_changpassword}
+										style={{
+											width: Sizes.s50,
+											height: Sizes.s50,
+											resizeMode: "contain",
+										}}
+									/> */}
+                    <Text
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: Sizes.s35,
+                        color: "white",
+                        marginLeft: Sizes.s20,
+                      }}
+                    >
+                      Thêm Vào Giỏ Hàng
+								</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+         
+        {/* <TouchableOpacity style={styles.bottomButton} onPress={() => {
           this.props.addToCartAction({ productId, quan: orderQuan })
           this.setState({ showModal: true })
         }}>
           <Text style={styles.addToCart}>THÊM VÀO GIỎ HÀNG</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </SafeAreaView>
     );
   }
@@ -339,5 +379,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "red",
     height: Sizes.s100,
+  },
+  editBtn: {
+    width: "90%",
+    height: Sizes.s100,
+    backgroundColor: "red",
+    borderRadius: Sizes.s10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: Sizes.s20,
+  },
+  buttonView: {
+    width: "100%",
+    bottom: 0,
+    position: "absolute",
+    alignItems: "center",
+    marginBottom: Sizes.s20,
+    justifyContent: "flex-end",
   },
 });

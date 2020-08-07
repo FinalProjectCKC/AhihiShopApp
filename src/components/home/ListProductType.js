@@ -96,6 +96,7 @@ export default class ListProductType extends React.Component {
         {this.props.loading && <Loading backgroundColor={"none"} />}
         <View style={styles.container}>
           <Headers
+           name="canhbao"
             title="Danh sách loại sản phẩm"
             onPressBackButton={() => {
               this.props.navigation.replace('MyModal');

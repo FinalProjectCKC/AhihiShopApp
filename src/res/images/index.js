@@ -67,10 +67,11 @@ const Images = {
   ic_key: require("./key.png"),
   ic_KinhTeXaHoi: require("./ic_KinhTeXaHoi.png"),
 
+  // ic_lock: require("./lock.png"),
   ic_lock: require("./lock.png"),
   ic_list: require("./ic_list.png"),
   ic_location: require("./location.png"),
-  ic_logout: require("./ic_logOut.png"),
+  ic_logout: require("./ic_logout.png"),
   ic_luggage: require("./ic_luggage.png"),
 
   ic_mail: require("./ic_mail.png"),

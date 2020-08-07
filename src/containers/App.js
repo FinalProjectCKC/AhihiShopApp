@@ -20,6 +20,9 @@ import ListProductContainer from '../containers/home/ListProductContainer'
 import ProfileContainer from '../containers/profile/ProfileContainer'
 import CartContainer from './cart/CartContainer'
 import NotificationContainer from './notification/NotificationContainer'
+
+import ChangePassContainer from './profile/ChangePassContainer'
+import InformationContainer from './profile/InformationContainer'
 //Order
 import OrderShipping from '../components/order/OrderShipping'
 //Admin
@@ -244,6 +247,12 @@ const RootStack = createStackNavigator(
     },
     DetailsProductContainer: {
       screen: DetailsProductContainer,
+    },
+    ChangePassContainer: {
+      screen: ChangePassContainer,
+    },
+    InformationContainer: {
+      screen: InformationContainer,
     },
     OrderShipping: {
       screen: OrderShipping,
