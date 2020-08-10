@@ -33,8 +33,6 @@ export default class CartComponent extends React.Component {
       this.props.error1 == null &&
       this.props.dataGetCart !== null
     ) {
-    console.log(this.props.dataGetCart.cartDetail)
-
       this.setState(
         {
           dataGetCart: this.props.dataGetCart,
@@ -42,6 +40,18 @@ export default class CartComponent extends React.Component {
           total: this.props.dataGetCart.Total,
         },
       );
+    }
+    if (
+      preProps.dataRemoveFormCart !== this.props.dataRemoveFormCart &&
+      this.props.error3 == null
+    ) {
+      this.props.getcartAction()
+    }
+    if (
+      preProps.dataChangeQuan !== this.props.dataChangeQuan &&
+      this.props.error2 == null
+    ) {
+      this.props.getcartAction()
     }
     if (preProps.error1 != this.props.error1 && this.props.error1 != null) {
       Alert.alert(
@@ -60,6 +70,10 @@ export default class CartComponent extends React.Component {
   }
   render() {
     const { navigation } = this.props;
+    let total = 0
+    if (this.props.dataGetCart !== null) {
+      total = this.props.dataGetCart.Total
+    }
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFF" }}>
         {this.props.loading1 && <Loading backgroundColor={"none"} />}
@@ -97,7 +111,7 @@ export default class CartComponent extends React.Component {
             }}>Không có sản phẩm nào trong giỏ hàng</Text>
           </View> :
           <View style={styles.container}>
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container1}>
               {this.state.cartDetail.map((item) => (
                 <Item
                   {...this.props}
@@ -109,14 +123,17 @@ export default class CartComponent extends React.Component {
                   unit={item.unit}
                   productId={item.productId}
                   changeQuanAction={this.props.changeQuanAction}
+                  removeFormCart={this.props.removeFormCartAction}
                   getcartAction={this.props.getcartAction}
                 />
               ))}
-              <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", marginTop: Sizes.s20, marginLeft: Sizes.s20, }}>Tổng Cộng : {this.state.total} VND</Text>
-              <View style={styles.buttonView}>
+              <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", marginTop: Sizes.s20, marginLeft: Sizes.s20, }}>Tổng Cộng : {total} VND</Text>
+            
+            </ScrollView>
+            <View style={styles.buttonView}>
                 <TouchableOpacity
                   style={styles.editBtn}
-                  onPress={() => this.onBtnPress()}
+                  onPress={() => this.props.navigation.navigate('InfoShippingContainer')}
                   underlayColor="rgb(255, 255, 255)"
                 >
                   <View
@@ -149,7 +166,6 @@ export default class CartComponent extends React.Component {
                   </View>
                 </TouchableOpacity>
               </View>
-            </ScrollView>
           </View>
         }
       </SafeAreaView>
@@ -164,13 +180,13 @@ class Item extends React.Component {
     }
   }
   onChangeQuanti(productId, quan) {
-    let newQuan = parseInt(quan)+parseInt(this.state.quan) 
+    let newQuan = parseInt(quan) + parseInt(this.state.quan)
     this.setState({
       quan: `${newQuan}`
     })
-    this.props.changeQuanAction({ productId, quan }, ()=> this.props.getcartAction())
-    this.props.getcartAction()
-    console.log(this.props.quan)
+    this.props.changeQuanAction({ productId, quan })
+    // this.props.getcartAction()
+    // console.log(this.props.quan)
   }
   componentWillMount() {
     this.setState({
@@ -203,15 +219,22 @@ class Item extends React.Component {
               style={styles.image}
               source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
             />
-            <View style={{ marginTop: Sizes.s45, marginLeft: Sizes.s45, width: screen.width - Sizes.s200,}}>
-              <View style={{flexDirection: "row",width: "100%"}}>
-              <Text style={styles.title}>{productName}</Text>
-              <TouchableOpacity
-                  style={{flex:2}}
+            <View style={{ marginTop: Sizes.s45, marginLeft: Sizes.s45, width: screen.width - Sizes.s200, }}>
+              <View style={{ flexDirection: "row", width: "100%" }}>
+                <Text style={styles.title}>{productName}</Text>
+                <TouchableOpacity
+                  style={{ flex: 2 }}
                   onPress={() => {
-                    // this.onChangeQuanti(productId, 1)
+                    this.props.removeFormCart({productId})
                   }}>
-                  <Text style={{ width:Sizes.s50, height: Sizes.s50, fontSize: Sizes.s35, fontWeight: "bold", backgroundColor:"red", borderRadius: 50 }}>X</Text>
+                     <Image
+										source={Images.ic_cancel}
+										style={{
+											width: Sizes.s50,
+											height: Sizes.s50,
+											resizeMode: "contain",
+										}}/>
+                  {/* <Text style={{ width: Sizes.s50, height: Sizes.s50, fontSize: Sizes.s35, fontWeight: "bold", backgroundColor: "red", borderRadius: 50 }}>X</Text> */}
                 </TouchableOpacity>
               </View>
               <Text style={styles.textPrice}>Giá: {price} VND</Text>
@@ -224,7 +247,7 @@ class Item extends React.Component {
                   <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", }}>+</Text>
                 </TouchableOpacity>
                 <TextInput
-                textAlign={'center'}
+                  textAlign={'center'}
                   style={{
                     padding: Sizes.s20,
                     borderWidth: 1,
@@ -262,6 +285,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ffff",
+  },
+  container1: {
+    // flex: 1,
+    backgroundColor: "#fff",
+    marginBottom: Sizes.s160
   },
   content: {
     width: "100%",
@@ -326,10 +354,10 @@ const styles = StyleSheet.create({
   buttonView: {
     width: "100%",
     bottom: 0,
-    // position: "absolute",
+    position: "absolute",
     alignItems: "center",
     marginTop: Sizes.s20,
-    // marginBottom: Sizes.s20,
+    marginBottom: Sizes.s20,
     justifyContent: "flex-end",
   },
 });

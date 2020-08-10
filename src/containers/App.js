@@ -13,16 +13,21 @@ import WelcomeScreen from '../components/welcomeScreen/WelcomeScreen'
 //User
 import LoginContainer from '../containers/login/LoginContainer'
 import RegisContainer from '../containers/login/RegisContainer'
+
 import HomeContainer from '../containers/home/HomeContainer'
 import ListProductTypeContainer from '../containers/home/ListProductTypeContainer'
 import DetailsProductContainer from '../containers/home/DetailsProductContainer'
 import ListProductContainer from '../containers/home/ListProductContainer'
-import ProfileContainer from '../containers/profile/ProfileContainer'
+
 import CartContainer from './cart/CartContainer'
+import InfoShippingContainer from './cart/InfoShippingContainer'
+
 import NotificationContainer from './notification/NotificationContainer'
 
 import ChangePassContainer from './profile/ChangePassContainer'
 import InformationContainer from './profile/InformationContainer'
+import ProfileContainer from '../containers/profile/ProfileContainer'
+
 //Order
 import OrderShipping from '../components/order/OrderShipping'
 //Admin
@@ -244,6 +249,9 @@ const RootStack = createStackNavigator(
     },
     ListProductContainer: {
       screen: ListProductContainer,
+    },
+    InfoShippingContainer: {
+      screen: InfoShippingContainer,
     },
     DetailsProductContainer: {
       screen: DetailsProductContainer,

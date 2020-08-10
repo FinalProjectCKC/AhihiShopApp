@@ -16,5 +16,8 @@ export const API_URL = {
   removeFromCart : API + "/Cart/RemoveFromCart",
   editQuanTi: API + "/Cart/EditQuanTi",
 
+  getUserData: API + "/getUserLogin",
+  updateUser: API + "/updateUser",
+
   newOrder: API + "/Order/NewOrder",
 }

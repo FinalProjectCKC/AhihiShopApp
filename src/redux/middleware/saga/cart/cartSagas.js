@@ -83,8 +83,6 @@ function* removeFormCartFlow(action) {
 function* changeQuanFlow(action) {
   try {
     const response = yield editQuanApi(action.data)
-  console.log("qưerqwerw ",response)
-
     if (response != undefined && !objectIsNull(response)) {
       if (response.status == 1) {
         yield put({ type: CHANGE_QUAN_SUCCESS, response })
@@ -99,8 +97,11 @@ function* changeQuanFlow(action) {
   }
 }
 function* createOrderFlow(action) {
+  console.log("11111111111", action.data)
   try {
     const response = yield newOrderApi(action.data)
+  console.log("qưerqwerw ",response)
+
     if (response != undefined && !objectIsNull(response)) {
       if (response.status == 1) {
         yield put({ type: CREATE_ORDER_SUCCESS, response })

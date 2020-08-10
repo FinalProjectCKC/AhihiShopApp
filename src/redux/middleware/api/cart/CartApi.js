@@ -90,7 +90,8 @@ export function editQuanApi(input) {
       return { status: -1, message: errorServerFail };
     });
 }
-export function newOrderApi() {
+export function newOrderApi(input) {
+  console.log("input", input)
   return fetch(API_URL.newOrder, {
     method: "POST",
     headers: {
@@ -99,7 +100,9 @@ export function newOrderApi() {
     },
     body: JSON.stringify({
       address: input.address,
+      email: input.email,
       phone: input.phone,
+      receiver: input.phone,
     }),
   })
     .then((response) => {

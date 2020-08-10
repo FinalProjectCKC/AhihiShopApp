@@ -25,7 +25,7 @@ import { userData } from '../../../config/settings';
 const initialState = {
   loading: false,
   error: null,
-  data: [],
+  data: null,
 };
 
 const getCartReducers = (state = initialState, action) => {
@@ -81,6 +81,7 @@ const removeFormCartReducers = (state = initialState, action) => {
   }
 };
 const createOrderReducers = (state = initialState, action) => {
+  console.log(action.type)
   switch (action.type) {
     case CREATE_ORDER:
       return Object.assign({}, state, {

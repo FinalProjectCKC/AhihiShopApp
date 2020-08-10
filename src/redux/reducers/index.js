@@ -3,6 +3,7 @@ import loginReducers from './login/loginReducers';
 import { getDetailsProductReducers, getListProductByTypeReducers, getListTypeReducers } from './home/homeReducer';
 import registerReducers from './login/regisReducers';
 import {getCartReducers, changeQuanReducers, removeFormCartReducers, addToCartReducers, createOrderReducers} from './cart/cartReducers';
+import {getUserDataReducers, updateUserReducers} from './profile/porfileReducers';
 
 const allReducers = combineReducers({
 
@@ -18,6 +19,9 @@ const allReducers = combineReducers({
     removeFormCartReducers,
     addToCartReducers,
     createOrderReducers,
+
+    getUserDataReducers,
+    updateUserReducers,
 });
 
 export default allReducers;
