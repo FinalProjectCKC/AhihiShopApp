@@ -37,7 +37,7 @@ export const removeFormCartAction = (input) => {
 }
 export const changeQuanAction = (input) => {
     return {
-        type: GET_CART,
+        type: CHANGE_QUAN,
         data: input
     }
 }

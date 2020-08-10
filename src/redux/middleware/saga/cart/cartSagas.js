@@ -83,6 +83,8 @@ function* removeFormCartFlow(action) {
 function* changeQuanFlow(action) {
   try {
     const response = yield editQuanApi(action.data)
+  console.log("qưerqwerw ",response)
+
     if (response != undefined && !objectIsNull(response)) {
       if (response.status == 1) {
         yield put({ type: CHANGE_QUAN_SUCCESS, response })

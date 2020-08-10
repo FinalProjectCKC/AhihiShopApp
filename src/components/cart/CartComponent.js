@@ -15,6 +15,7 @@ import { Sizes } from "@dungdang/react-native-basic";
 import { ScrollView } from "react-native-gesture-handler";
 import Loading from "../custom/Loading";
 import Images from "../../res/images/index";
+import { isPhone, screen } from '../../config/settings'
 
 export default class CartComponent extends React.Component {
   constructor(props) {
@@ -27,12 +28,13 @@ export default class CartComponent extends React.Component {
     };
   }
   componentDidUpdate(preProps) {
-    console.log(this.state.cartDetail)
     if (
       preProps.dataGetCart !== this.props.dataGetCart &&
       this.props.error1 == null &&
       this.props.dataGetCart !== null
     ) {
+    console.log(this.props.dataGetCart.cartDetail)
+
       this.setState(
         {
           dataGetCart: this.props.dataGetCart,
@@ -61,6 +63,7 @@ export default class CartComponent extends React.Component {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFF" }}>
         {this.props.loading1 && <Loading backgroundColor={"none"} />}
+        {this.props.loading2 && <Loading backgroundColor={"none"} />}
         <Headers
           name="canhbao"
           title="Giỏ hàng"
@@ -68,7 +71,6 @@ export default class CartComponent extends React.Component {
             this.props.navigation.goBack();
           }}
         />
-        {/* {true ? */}
         {this.state.cartDetail.length === 0 ?
           <View style={{
             // borderTopWidth: 1,
@@ -94,7 +96,7 @@ export default class CartComponent extends React.Component {
               color: '#ABAAAC'
             }}>Không có sản phẩm nào trong giỏ hàng</Text>
           </View> :
-          <View style={styles.container}> 
+          <View style={styles.container}>
             <ScrollView style={styles.container}>
               {this.state.cartDetail.map((item) => (
                 <Item
@@ -102,28 +104,30 @@ export default class CartComponent extends React.Component {
                   productName={item.productName}
                   price={item.price}
                   description={item.description}
-                  quan={item.quan}
+                  quan={`${item.quan}`}
                   productImg={item.productImg}
                   unit={item.unit}
                   productId={item.productId}
+                  changeQuanAction={this.props.changeQuanAction}
+                  getcartAction={this.props.getcartAction}
                 />
               ))}
-            </ScrollView>
-            <View style={styles.buttonView}>
-              <TouchableOpacity
-                style={styles.editBtn}
-                onPress={() => this.onBtnPress()}
-                underlayColor="rgb(255, 255, 255)"
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
+              <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", marginTop: Sizes.s20, marginLeft: Sizes.s20, }}>Tổng Cộng : {this.state.total} VND</Text>
+              <View style={styles.buttonView}>
+                <TouchableOpacity
+                  style={styles.editBtn}
+                  onPress={() => this.onBtnPress()}
+                  underlayColor="rgb(255, 255, 255)"
                 >
-                  <View style={{ flexDirection: "row" }}>
-                    {/* <Image
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row" }}>
+                      {/* <Image
 										source={Images.ic_changpassword}
 										style={{
 											width: Sizes.s50,
@@ -131,21 +135,21 @@ export default class CartComponent extends React.Component {
 											resizeMode: "contain",
 										}}
 									/> */}
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        fontSize: Sizes.s35,
-                        color: "white",
-                        marginLeft: Sizes.s20,
-                      }}
-                    >
-                      Mua Hàng
+                      <Text
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: Sizes.s35,
+                          color: "white",
+                          marginLeft: Sizes.s20,
+                        }}
+                      >
+                        Mua Hàng
 								</Text>
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
-            </View>
-         
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
           </View>
         }
       </SafeAreaView>
@@ -155,31 +159,101 @@ export default class CartComponent extends React.Component {
 class Item extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      quan: "1",
+    }
+  }
+  onChangeQuanti(productId, quan) {
+    let newQuan = parseInt(quan)+parseInt(this.state.quan) 
+    this.setState({
+      quan: `${newQuan}`
+    })
+    this.props.changeQuanAction({ productId, quan }, ()=> this.props.getcartAction())
+    this.props.getcartAction()
+    console.log(this.props.quan)
+  }
+  componentWillMount() {
+    this.setState({
+      quan: `${this.props.quan}`
+    })
+  }
+  componentDidUpdate(prevProps) {
+    // if (this.props.quan !== prevProps.quan) {
+    //   this.setState({
+    //     quan: `${this.props.quan}`
+    //   })
+    // }
   }
   render() {
-    const { productName, price, description, quan, productImg, unit, productId } = this.props;
-
+    const { productName, price, description, productImg, unit, productId } = this.props;
+    let quan = `${this.state.quan}`
     return (
-      <TouchableOpacity
-        onPress={() => {
-          this.props.navigation.navigate("DetailsProductContainer", {
-            productId,
-          })
-        }
-        }
-        style={styles.content}
-      >
-        <View style={{ margin: 5, flexDirection: "row" }}>
-          <Image
-            style={styles.image}
-            source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
-          />
-          <View style={{ marginTop: Sizes.s45, }}>
-            <Text style={styles.title}>{productName}</Text>
-            <Text style={styles.textPrice}>Giá: {price} VND</Text>
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate("DetailsProductContainer", {
+              productId,
+            })
+          }
+          }
+          style={styles.content}
+        >
+          <View style={{ margin: 5, flexDirection: "row" }}>
+            <Image
+              style={styles.image}
+              source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
+            />
+            <View style={{ marginTop: Sizes.s45, marginLeft: Sizes.s45, width: screen.width - Sizes.s200,}}>
+              <View style={{flexDirection: "row",width: "100%"}}>
+              <Text style={styles.title}>{productName}</Text>
+              <TouchableOpacity
+                  style={{flex:2}}
+                  onPress={() => {
+                    // this.onChangeQuanti(productId, 1)
+                  }}>
+                  <Text style={{ width:Sizes.s50, height: Sizes.s50, fontSize: Sizes.s35, fontWeight: "bold", backgroundColor:"red", borderRadius: 50 }}>X</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.textPrice}>Giá: {price} VND</Text>
+              <View style={{ marginTop: Sizes.s25, flexDirection: "row", width: "20%" }}>
+                <TouchableOpacity
+                  style={styles.btn_IDcrement}
+                  onPress={() => {
+                    this.onChangeQuanti(productId, 1)
+                  }}>
+                  <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", }}>+</Text>
+                </TouchableOpacity>
+                <TextInput
+                textAlign={'center'}
+                  style={{
+                    padding: Sizes.s20,
+                    borderWidth: 1,
+                    fontSize: Sizes.s35,
+                    height: Sizes.s75,
+                    width: Sizes.s140,
+                    borderColor: "#EFEFEF",
+                  }}
+                  // onChangeText={(text) => {
+                  //   this.setState({ orderQuan: text });
+                  // }}
+                  keyboardType='numeric'
+                  value={quan}
+                  defaultValue={quan}
+                />
+                <TouchableOpacity
+                  style={styles.btn_IDcrement}
+                  // disabled ={(this.state.orderQuan >= this.state.quan)}
+                  disabled={(quan < 2)}
+                  onPress={() => {
+                    this.onChangeQuanti(productId, -1)
+                  }}>
+                  <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", }}>-</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
@@ -190,14 +264,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffff",
   },
   content: {
-    // marginTop: Sizes.s10,
-    width: "50%",
+    width: "100%",
     borderBottomWidth: 1,
     borderBottomColor: "#EFEFEF",
     // marginBottom: Sizes.s10,
+    // backgroundColor:"red",
     borderColor: "#EFEFEF",
   },
   title: {
+    flex: 8,
     fontSize: Sizes.s35,
     fontWeight: "bold",
     fontFamily: 'Roboto',
@@ -221,6 +296,15 @@ const styles = StyleSheet.create({
     color: "#828282",
     marginBottom: Sizes.s10,
   },
+  btn_IDcrement: {
+    borderWidth: 1,
+    height: Sizes.s75,
+    width: Sizes.s75,
+    borderColor: "#EFEFEF",
+    justifyContent: "center",
+    alignItems: "center",
+    // color: "#EFEFEF",
+  },
   bottomButton: {
     width: "100%",
     flexDirection: "row",
@@ -242,9 +326,10 @@ const styles = StyleSheet.create({
   buttonView: {
     width: "100%",
     bottom: 0,
-    position: "absolute",
+    // position: "absolute",
     alignItems: "center",
-    marginBottom: Sizes.s20,
+    marginTop: Sizes.s20,
+    // marginBottom: Sizes.s20,
     justifyContent: "flex-end",
   },
 });
