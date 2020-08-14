@@ -30,9 +30,9 @@ import ProfileContainer from '../containers/profile/ProfileContainer'
 
 //Order
 import OrderShipping from '../components/order/OrderShipping'
-//Admin
 import ControlContainer from './control/ControlContainer'
-import OrderContainer from './order/OrderContainer'
+import ListOrderContainer from './order/ListOrderContainer'
+import OrderDetailsContainer from './order/OrderDetailsContainer'
 
 const RouteUser = {
   Home: {
@@ -261,6 +261,12 @@ const RootStack = createStackNavigator(
     },
     InformationContainer: {
       screen: InformationContainer,
+    },
+    ListOrderContainer: {
+      screen: ListOrderContainer,
+    },
+    OrderDetailsContainer: {
+      screen: OrderDetailsContainer,
     },
     OrderShipping: {
       screen: OrderShipping,

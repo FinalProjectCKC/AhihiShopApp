@@ -20,4 +20,7 @@ export const API_URL = {
   updateUser: API + "/updateUser",
 
   newOrder: API + "/Order/NewOrder",
+  getListOrder: API + "/Order/ListOrder",
+  getOrderDetails: API + "/Order/OrderDetails",
+  changeStatusOrder: API + "/Order/ChangeStatus",
 }

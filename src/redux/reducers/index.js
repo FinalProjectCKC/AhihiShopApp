@@ -2,14 +2,15 @@ import { combineReducers } from 'redux';
 import loginReducers from './login/loginReducers';
 import { getDetailsProductReducers, getListProductByTypeReducers, getListTypeReducers } from './home/homeReducer';
 import registerReducers from './login/regisReducers';
-import {getCartReducers, changeQuanReducers, removeFormCartReducers, addToCartReducers, createOrderReducers} from './cart/cartReducers';
-import {getUserDataReducers, updateUserReducers} from './profile/porfileReducers';
+import { getCartReducers, changeQuanReducers, removeFormCartReducers, addToCartReducers, createOrderReducers } from './cart/cartReducers';
+import { getUserDataReducers, updateUserReducers } from './profile/porfileReducers';
+import { getListOrderReducers, getOrderDetailReducers, changeStatusOrderReducers } from './order/OrderReducers';
 
 const allReducers = combineReducers({
 
     loginReducers,
     registerReducers,
-    
+
     getListTypeReducers,
     getListProductByTypeReducers,
     getDetailsProductReducers,
@@ -22,6 +23,10 @@ const allReducers = combineReducers({
 
     getUserDataReducers,
     updateUserReducers,
+
+    getListOrderReducers,
+    getOrderDetailReducers,
+    changeStatusOrderReducers,
 });
 
 export default allReducers;

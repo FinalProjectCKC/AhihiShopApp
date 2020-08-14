@@ -40,7 +40,7 @@ export default class ProfileCoponent extends React.Component {
     },
     {
       title: "Đơn hàng của tôi",
-      navi: "",
+      navi: "ListOrderContainer",
       icLeft: Images.ic_task_inactive,
     },
     {

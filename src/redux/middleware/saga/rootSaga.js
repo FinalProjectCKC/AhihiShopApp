@@ -5,6 +5,7 @@ import { watchDetailProduct, watchListProType, watchListProductByType } from './
 import { watchRegister } from './login/regisSagas'
 import { watchAddToCart, watchChangeQuan, watchCreateOrder, watchGetCart, watchRemoveFormCart } from './cart/cartSagas'
 import { watchGetUserData, watchUpdateUser } from './profile/profileSagas'
+import { watchChangeStatus, watchGetListOrder, watchGetOrderDetails } from './order/orderSagas'
 
 export default function* rootSaga() {
     yield all([
@@ -23,5 +24,9 @@ export default function* rootSaga() {
 
         watchGetUserData(),
         watchUpdateUser(),
+
+        watchChangeStatus(),
+        watchGetListOrder(),
+        watchGetOrderDetails(),
     ]);
 }
