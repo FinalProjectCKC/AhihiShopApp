@@ -191,7 +191,11 @@ export default class OrderDetailsComponent extends React.Component {
                     (this.state.status == 3) ? <View style={styles.imgStatus}><Image
                       style={styles.imageStt}
                       source={Images.ic_status3}
-                    /></View> : null}
+                    /></View> : 
+                    (this.state.status == -1||this.state.status == -2) ? <View style={styles.imgStatus}><Image
+                      style={styles.imageStt}
+                      source={Images.ic_status5}
+                    /></View> :null}
               <View>
 
               </View>
