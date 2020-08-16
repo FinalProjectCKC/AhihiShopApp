@@ -25,6 +25,8 @@ export function getUserDataApi() {
     });
 }
 export function updateUserApi(input) {
+  console.log("Ré", input)
+
   return fetch(API_URL.updateUser, {
     method: "POST",
     headers: {
@@ -33,9 +35,33 @@ export function updateUserApi(input) {
     },
     body: JSON.stringify({
       fullName: input.fullName,
-      email: input.email,
+      // email: input.email,
       phone: input.phone,
       address: input.address,
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      return { status: -1, message: errorServerFail };
+    });
+}
+export function changePassApi(input) {
+  console.log("response ", input)
+
+  return fetch(API_URL.changePass, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userData.token}`,
+    },
+    body: JSON.stringify({
+      newpass: input.newpass,
+      password: input.password,
     }),
   })
     .then((response) => {

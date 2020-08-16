@@ -17,7 +17,8 @@ export const API_URL = {
   editQuanTi: API + "/Cart/EditQuanTi",
 
   getUserData: API + "/getUserLogin",
-  updateUser: API + "/updateUser",
+  updateUser: API + "/Account/updateData",
+  changePass: API + "/Account/changePass",
 
   newOrder: API + "/Order/NewOrder",
   getListOrder: API + "/Order/ListOrder",

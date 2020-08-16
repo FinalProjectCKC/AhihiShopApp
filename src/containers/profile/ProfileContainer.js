@@ -26,8 +26,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 }
 const mapStateToProps = (state) => {
-    // {"data": {"address": null, "avatarUrl": null, "email": "tunxgatrssssasasxd@gmail.com", "fullName": "", "phone": null, "userID": "5f3604cc76746012aa8cf55a", "username": "asssss"}, "message": "Lấy thông tin thành công", "status": 1}
-    // console.log("userData", state.getUserDataReducers.userData)
     return {
         error: state.getUserDataReducers.error,
         loading: state.getUserDataReducers.loading,

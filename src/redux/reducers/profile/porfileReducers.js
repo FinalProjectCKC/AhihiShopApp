@@ -6,7 +6,11 @@ import {
 
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
-  UPDATE_USER
+  UPDATE_USER,
+
+  CHANGE_PASS_SUCCESS,
+  CHANGE_PASS_ERROR,
+  CHANGE_PASS
 } from '../../actions/profile/ProfileActions';
 import { userData } from '../../../config/settings';
 
@@ -69,4 +73,28 @@ const updateUserReducers = (state = initialState, action) => {
       return state;
   }
 };
-export { getUserDataReducers, updateUserReducers };
+const changePassReducers = (state = initialState, action) => {
+  switch (action.type) {
+    case CHANGE_PASS:
+      return Object.assign({}, state, {
+        loading: true,
+        data: null,
+        error: null
+      });
+    case CHANGE_PASS_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        data: action.response.data,
+        error: null
+      });
+    case CHANGE_PASS_ERROR:
+      return Object.assign({}, state, {
+        loading: false,
+        data: null,
+        error: action.error
+      });
+    default:
+      return state;
+  }
+};
+export { getUserDataReducers, updateUserReducers, changePassReducers };

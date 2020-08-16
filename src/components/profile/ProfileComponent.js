@@ -41,7 +41,7 @@ export default class ProfileCoponent extends React.Component {
       //address avatarUrl fullName phone
       userData.address = this.props.userData.address
       userData.email = this.props.userData.email
-      userData.fullName = this.props.userData.fullName
+      userData.fullname = this.props.userData.fullName
       userData.phone = this.props.userData.phone
     }
   }
@@ -61,11 +61,11 @@ export default class ProfileCoponent extends React.Component {
       navi: "ListOrderContainer",
       icLeft: Images.ic_task_inactive,
     },
-    {
-      title: "Đăng Xuất",
-      navi: "",
-      icLeft: Images.ic_logout,
-    },
+    // {
+    //   title: "Đăng Xuất",
+    //   navi: "",
+    //   icLeft: Images.ic_logout,
+    // },
     ]
     return (
       <SafeAreaView >
@@ -90,10 +90,10 @@ export default class ProfileCoponent extends React.Component {
             </View>
             <View style={styles.infor}>
               <Text style={styles.text2}>
-                Tran Xuan Tung
+                {(userData.fullname !== "")  ? userData.fullname : userData.username}
                     </Text>
               <Text style={styles.text3}>
-                0378314546
+              {(userData.phone !== "")  ? userData.phone : null}
                     </Text>
             </View>
           </View>
@@ -127,6 +127,31 @@ export default class ProfileCoponent extends React.Component {
                 </View>
               </TouchableOpacity>
             ))}
+            <TouchableOpacity
+                style={styles.box}
+                onPress={() => {
+                  userData.token = ""
+                  this.props.navigation.replace('Login')
+                }}
+                underlayColor="transparent"
+              >
+                <View style={styles.box}>
+                  <View style={styles.middle}>
+                    <Image
+                      source={ Images.ic_logout}
+                      style={styles.icon}
+                    />
+                    <Text style={styles.text}>
+                    Đăng Xuất
+                    </Text>
+                  </View>
+                  <IconA
+                    name="right"
+                    size={Sizes.s30}
+                    color="#707070"
+                  />
+                </View>
+              </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>

@@ -3,7 +3,7 @@ import loginReducers from './login/loginReducers';
 import { getDetailsProductReducers, getListProductByTypeReducers, getListTypeReducers } from './home/homeReducer';
 import registerReducers from './login/regisReducers';
 import { getCartReducers, changeQuanReducers, removeFormCartReducers, addToCartReducers, createOrderReducers } from './cart/cartReducers';
-import { getUserDataReducers, updateUserReducers } from './profile/porfileReducers';
+import { getUserDataReducers, updateUserReducers, changePassReducers } from './profile/porfileReducers';
 import { getListOrderReducers, getOrderDetailReducers, changeStatusOrderReducers } from './order/OrderReducers';
 
 const allReducers = combineReducers({
@@ -23,6 +23,7 @@ const allReducers = combineReducers({
 
     getUserDataReducers,
     updateUserReducers,
+    changePassReducers,
 
     getListOrderReducers,
     getOrderDetailReducers,

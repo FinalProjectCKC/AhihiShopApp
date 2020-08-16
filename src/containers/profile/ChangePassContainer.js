@@ -2,31 +2,26 @@ import React, {Component} from 'react';
 
 import {connect} from 'react-redux';
 import ChangePassword from '../../components/profile/ChangePassword';
-// import {changePassAction, changeStateChangePassAction} from '../../redux/actions/profiles/ChangePassAction';
+import { changePassAction } from '../../redux/actions/profile/ProfileActions'
 import { objectIsNull } from "@dungdang/react-native-basic/src/Functions";
 
 class ChangePassContainer extends React.Component {
-  componentDidMount() {
-  }
   render() {
     return <ChangePassword {...this.props} />;
   }
 }
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    // changePassAction: (input) => {
-    //   dispatch(changePassAction(input));
-    // },
+    changePassAction: (input) => {
+      dispatch(changePassAction(input));
+    },
   };
 };
 const mapStateToProps = (state) => {
   return {
-    // id: !objectIsNull(state.profilesReducers.result)
-		// 	? state.profilesReducers.result.NguoiDungID
-		// 	: "",
-    // data: state.ChangePassReduces.data,
-    // error: state.ChangePassReduces.error,
+    loading: state.changePassReducers.loading,
+    changePassData: state.changePassReducers.data,
+    error: state.changePassReducers.error,
   };
 };
 export default connect(

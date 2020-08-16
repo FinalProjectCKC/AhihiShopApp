@@ -27,25 +27,31 @@ export default class Information extends React.Component {
 		this.state = {
 			editable: false,
 			hoten: userData.fullname,
-			noiCap: "",
 			sdt: userData.phone,
 			diaChi: userData.address,
 			email: userData.email,
-			alert: null,
+			alert: "",
 		};
 	}
-	componentDidUpdate() {
-		if (this.state.alert !== null)
+	componentDidUpdate(prevProps) {
+	
+		if (this.props.error !== prevProps.error && this.props.error !== null) {
 			Alert.alert(
 				"Lỗi",
-				this.state.alert,
-				[{
-					text: "OK", onPress: () => {
-						this.setState({ alert: null })
-					}
-				}],
+				this.props.error,
+				[{ text: "OK", onPress: () => console.log("OK Pressed") }],
 				{ cancelable: false }
 			);
+		}
+		if (this.props.updateData !== prevProps.updateData && this.props.error == null && this.props.updateData !== null) {
+			Alert.alert(
+				"Thông báo",
+				"Cập nhật thành công",
+				[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+				{ cancelable: false }
+			);
+		}
+		
 	}
 
 	onBtnPress = () => {
@@ -54,25 +60,38 @@ export default class Information extends React.Component {
 				arrayIsEmpty(this.state.email) ||
 				arrayIsEmpty(this.state.sdt)
 			) {
-				this.setState({
-					alert: "Vui lòng nhập đầy đủ email và số điện thoại!",
-				});
+				Alert.alert(
+					"Lỗi",
+					"Vui lòng nhập đầy đủ email và số điện thoại!",
+					[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+					{ cancelable: false }
+				);
 				return;
 			}
 			if (!this.validHoten(this.state.hoten)) {
-				this.setState({
-					alert: "Vui lòng nhập đầy đủ họ tên, không bao gồm các kí tự đặc biệt!",
-				});
-				return;
+				Alert.alert(
+					"Lỗi",
+					"Vui lòng nhập đầy đủ họ tên, không bao gồm các kí tự đặc biệt!",
+					[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+					{ cancelable: false }
+				);
 			}
 			if (!this.validPhone(this.state.sdt)) {
-				this.setState({
-					alert: "Vui lòng nhập chính xác số điện thoại!",
-				});
+				Alert.alert(
+					"Lỗi",
+					"Vui lòng nhập chính xác số điện thoại!",
+					[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+					{ cancelable: false }
+				);
 				return;
 			}
 			if (!this.validEmail(this.state.email)) {
-				this.setState({ alert: "Vui lòng nhập chính xác email!" });
+				Alert.alert(
+					"Lỗi",
+					"Vui lòng nhập chính xác email!",
+					[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+					{ cancelable: false }
+				);
 				return;
 			}
 			this.updateProfile();
@@ -82,19 +101,12 @@ export default class Information extends React.Component {
 	};
 
 	updateProfile = () => {
-		var raw = JSON.stringify({
-			AnhDaiDien: this.props.result.AnhDaiDien,
-			ChoOHienNay: this.state.diaChi,
-			Email: this.state.email,
-			HoTen: this.state.hoten,
-			NgayCap: this.state.ngayCap,
-			NguoiDungID: this.props.id,
-			NoiCap: this.state.noiCap,
-			SoDienThoai: this.state.sdt,
-			SoGiayToTuyThan: this.state.cmnd,
-		});
-		this.props.postInformation(raw);
-		this.props.getProfiles(this.props.id);
+		var input = {
+			address: this.state.diaChi,
+			phone: this.state.sdt,
+			fullName: this.state.hoten,
+		}
+		this.props.updateUserAction(input);
 	};
 	validHoten = (Hoten) => {
 		var kt = true;

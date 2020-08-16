@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import { View, Text, TextInput, Image, TouchableHighlight, SafeAreaView } from "react-native";
+import { View, Text, TextInput, Image, TouchableHighlight, SafeAreaView,Alert } from "react-native";
 import { StyleSheet } from "react-native";
 import Images from "../../res/images";
 import { Sizes } from "@dungdang/react-native-basic";
@@ -9,6 +9,7 @@ import { isPhone, screen } from '../../config/settings'
 import ModalNotification from "../custom/Modal";
 import { arrayIsEmpty } from "@dungdang/react-native-basic/src/Functions";
 import { ScrollView } from "react-native-gesture-handler";
+import Loading from '../custom/Loading';
 
 export default class ChangePassword extends React.Component {
 	constructor(props) {
@@ -21,8 +22,24 @@ export default class ChangePassword extends React.Component {
 			alert: null,
 		};
 	}
-	componentDidUpdate() { }
-	componentDidMount() { }
+	componentDidUpdate(prevProps) {
+		if (this.props.error !== prevProps.error && this.props.error !== null) {
+			Alert.alert(
+				"Lỗi",
+				this.props.error,
+				[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+				{ cancelable: false }
+			);
+		}
+		if (this.props.changePassData !== prevProps.changePassData && this.props.error == null && this.props.changePassData !== null) {
+			Alert.alert(
+				"Thông báo",
+				"Đổi mật khẩu thành công",
+				[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+				{ cancelable: false }
+			);
+		}
+	}
 	validatePassword = (pass) => {
 		if (pass.trim(" ").length < 6) return false;
 		if (pass.search(" ") != -1) return false;
@@ -30,57 +47,54 @@ export default class ChangePassword extends React.Component {
 	};
 	onBtnPress = () => {
 		const { currentPass, passNew, confirmPass } = this.state;
+		console.log(this.state)
+
 		if (
 			arrayIsEmpty(currentPass) ||
 			arrayIsEmpty(passNew) ||
 			arrayIsEmpty(confirmPass)
 		) {
-			this.setState({ alert: "Vui lòng nhập đầy đủ!" });
-		} else if (
-			currentPass.length < 6 ||
-			passNew.length < 6 ||
-			confirmPass.length < 6 ||
-			!this.validatePassword(passNew) ||
-			!this.validatePassword(confirmPass)
-		) {
-			this.setState({
-				alert:
-					"Mật khẩu phải có tối thiểu 6 ký tự\n và không chứa khoảng trắng. Vui lòng kiểm tra lại!",
-			});
+			Alert.alert(
+				"Lỗi",
+				"Vui lòng nhập đầy đủ!",
+				[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+				{ cancelable: false }
+			);
 		} else {
 			if (passNew !== confirmPass) {
-				this.setState({
-					alert: "Xác nhận mật khẩu không hợp lệ!",
-				});
+				Alert.alert(
+					"Lỗi",
+					"Xác nhận mật khẩu không hợp lệ!",
+					[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+					{ cancelable: false }
+				);
 			} else {
 				if (passNew === currentPass) {
-					this.setState({
-						alert: "Mật khẩu mới không được trùng với mật khẩu cũ!",
-					});
+					Alert.alert(
+						"Lỗi",
+						"Mật khẩu mới không được trùng với mật khẩu cũ!",
+						[{ text: "OK", onPress: () => console.log("OK Pressed") }],
+						{ cancelable: false }
+					);
 				} else {
-
-
-					console.log("changePassAction");
 					this.props.changePassAction({
-						id: this.props.id,
-						MatKhauCu: currentPass,
-						MatKhauMoi: passNew,
-						MatKhauXacNhan: confirmPass,
+						password: currentPass,
+						newpass: passNew,
 					});
 				}
 			}
 		}
 	};
-
 	render() {
 		return (
 			<SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-						<Headers
-						title="Đổi mật khẩu"
-						name="canhbao"
-						onPressBackButton={() => this.props.navigation.goBack()}
-					/>
-				<ScrollView style={{flex: 1}}>
+				{this.props.loading && <Loading />}
+				<Headers
+					title="Đổi mật khẩu"
+					name="canhbao"
+					onPressBackButton={() => this.props.navigation.goBack()}
+				/>
+				<ScrollView style={{ flex: 1 }}>
 					<View style={styles.content}>
 						<View style={styles.box}>
 							<Text style={styles.text}>Mật khẩu hiện tại</Text>

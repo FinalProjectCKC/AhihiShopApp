@@ -2,10 +2,9 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import Information from "../../components/profile/Information";
-import { getUserDataAction } from "../../redux/actions/profile/ProfileActions";
+import { updateUserAction, getUserDataAction } from "../../redux/actions/profile/ProfileActions";
 import { objectIsNull } from "@dungdang/react-native-basic/src/Functions";
 class InformationContainer extends React.Component {
-	componentDidUpdate() {}
 	render() {
 		return <Information {...this.props} />;
 	}
@@ -13,16 +12,16 @@ class InformationContainer extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		// getProfiles: (id) => {
-		// 	dispatch(getProfiles(id));
-		// },
+		updateUserAction: (input) => {
+			dispatch(updateUserAction(input));
+		},
 	};
 };
 const mapStateToProps = (state) => {
 	return {
-		// result: state.profilesReducers.result,
-		// status: state.informationReducers.status,
-		// description: state.informationReducers.description,
+		loading: state.updateUserReducers.loading,
+    updateData: state.updateUserReducers.data,
+    error: state.updateUserReducers.error,
 	};
 };
 export default connect(

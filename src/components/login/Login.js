@@ -85,6 +85,10 @@ export default class Login extends React.Component {
       );
     }
     if (this.props.loginData !== prevProps.loginData && this.props.error == null && this.props.loginData !== null) {
+      if(this.state.remember){
+        userData.password = this.state.password
+        userData.username = this.state.username
+      }
       this.props.navigation.navigate('MyModal')
     }
   }

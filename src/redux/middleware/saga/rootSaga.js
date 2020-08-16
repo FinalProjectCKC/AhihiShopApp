@@ -4,7 +4,7 @@ import { watchLogin } from './login/loginSagas'
 import { watchDetailProduct, watchListProType, watchListProductByType } from './homeSaga/homeSagas'
 import { watchRegister } from './login/regisSagas'
 import { watchAddToCart, watchChangeQuan, watchCreateOrder, watchGetCart, watchRemoveFormCart } from './cart/cartSagas'
-import { watchGetUserData, watchUpdateUser } from './profile/profileSagas'
+import { watchGetUserData, watchUpdateUser ,watchChangePass } from './profile/profileSagas'
 import { watchChangeStatus, watchGetListOrder, watchGetOrderDetails } from './order/orderSagas'
 
 export default function* rootSaga() {
@@ -24,6 +24,7 @@ export default function* rootSaga() {
 
         watchGetUserData(),
         watchUpdateUser(),
+        watchChangePass(),
 
         watchChangeStatus(),
         watchGetListOrder(),
