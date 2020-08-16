@@ -118,10 +118,13 @@ export default class OrderDetailsComponent extends React.Component {
         {this.props.loading && <Loading backgroundColor={"none"} />}
         {this.props.loading1 && <Loading backgroundColor={"none"} />}
         <Headers
-          name="canhbao"
+          name="headerCartIcon"
           title="Chi tiết hoá đơn "
           onPressBackButton={() => {
             this.props.navigation.goBack();
+          }}
+          onPressCartButton={()=>{
+            this.props.navigation.navigate('CartContainer')
           }}
         />
         {/* \ <Image

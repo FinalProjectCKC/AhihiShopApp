@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoginComponent from '../../components/login/Login'
 import { loginAction, logoutAction } from '../../redux/actions/login/LoginActions'
+import { getcartAction } from '../../redux/actions/cart/CartActions'
 
 class LoginContainer extends React.Component {
     componentDidMount() {

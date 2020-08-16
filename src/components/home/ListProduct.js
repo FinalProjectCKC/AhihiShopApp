@@ -137,10 +137,13 @@ export default class ListProduct extends React.Component {
         {this.props.loading && <Loading backgroundColor={"none"} />}
         <View style={styles.container}>
           <Headers
-            name="canhbao"
+            name="headerCartIcon"
             title={this.state.header}
             onPressBackButton={() => {
               this.props.navigation.goBack();
+            }}
+            onPressCartButton={()=>{
+              this.props.navigation.navigate('CartContainer')
             }}
           >
             <View style={styles.search}>

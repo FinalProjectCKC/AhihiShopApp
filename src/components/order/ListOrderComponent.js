@@ -97,10 +97,13 @@ export default class ListOrderComponent extends React.Component {
         {this.props.loading && <Loading backgroundColor={"none"} />}
         <View style={styles.container}>
           <Headers
-            name="canhbao"
+            name="headerCartIcon"
             title="Danh sách đơn hàng"
             onPressBackButton={() => {
               this.props.navigation.goBack()
+            }}
+            onPressCartButton={()=>{
+              this.props.navigation.navigate('CartContainer')
             }}
           />
           {/* Have a nice day =)) */}

@@ -227,6 +227,87 @@ export default class Headers extends React.Component {
 						<View style={styles.line}></View>
 					</View>
 				);
+				case "headerCartIcon":
+				return (
+					<View
+						style={{
+							paddingVertical: Sizes.s10,
+						}}
+					>
+						<StatusBar barStyle="dark-content" />
+						<View
+							style={{
+								alignItems: "center",
+								justifyContent: "center",
+								flexDirection: "row",
+							}}
+						>
+							<TouchableOpacity
+								style={{
+									// position: 'absolute',
+									left: Sizes.s30,
+									width: Sizes.s55,
+									height: Sizes.s55,
+									justifyContent: "center",
+								}}
+								onPress={() => {
+									props.onPressBackButton();
+								}}
+							>
+								<Image
+									resizeMode="contain"
+									source={Images.ic_back}
+									style={{
+										width: Sizes.s45,
+										height: Sizes.s45,
+									}}
+								/>
+							</TouchableOpacity>
+							<View
+								style={{
+									flex: 1,
+									paddingHorizontal: Sizes.s50,
+								}}
+							>
+								<Text
+									numberOfLines={2}
+									style={{
+										textAlign: "center",
+										alignSelf: "center",
+										fontSize: Sizes.s35,
+										fontFamily: "Roboto-Bold",
+										color: "#1A232C",
+									}}
+								>
+									{title}
+								</Text>
+							</View>
+							<TouchableOpacity
+								style={{
+									position: 'absolute',
+									right: Sizes.s30,
+									width: Sizes.s55,
+									height: Sizes.s55,
+									justifyContent: "center",
+								}}
+								onPress={() => {
+									props.onPressCartButton()
+								}}
+							>
+								<Image
+									resizeMode="contain"
+									source={Images.shopping_cart}
+									style={{
+										width: Sizes.s45,
+										height: Sizes.s45,
+									}}
+								/>
+							</TouchableOpacity>
+						</View>
+						<View style={styles.waringSearch}>{children}</View>
+						<View style={styles.line}></View>
+					</View>
+				);
 			default:
 				return (
 					<View

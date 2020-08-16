@@ -265,6 +265,9 @@ const RootStack = createStackNavigator(
     ListOrderContainer: {
       screen: ListOrderContainer,
     },
+    CartContainer: {
+      screen: CartContainer,
+    },
     OrderDetailsContainer: {
       screen: OrderDetailsContainer,
     },

@@ -135,8 +135,11 @@ export default class Information extends React.Component {
 		return (
 			<SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }}>
 				<Headers
-					name="canhbao"
+					name="headerCartIcon"
 					title="Thông tin tài khoản"
+					onPressCartButton={()=>{
+						this.props.navigation.navigate('CartContainer')
+					}}
 					onPressBackButton={() => this.props.navigation.goBack()}
 				/>
 				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>

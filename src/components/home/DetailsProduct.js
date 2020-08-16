@@ -144,10 +144,13 @@ export default class productData extends React.Component {
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFF" }}>
         {this.props.loading && <Loading backgroundColor={"none"} />}
         <Headers
-          name="canhbao"
+          name="headerCartIcon"
           title="Chi tiết sản phẩm"
           onPressBackButton={() => {
             this.props.navigation.goBack();
+          }}
+          onPressCartButton={()=>{
+            this.props.navigation.navigate('CartContainer')
           }}
         />
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
