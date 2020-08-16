@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   TextInput,
+  Alert,
   SafeAreaView
 } from "react-native";
 import Headers from "../custom/Headers";

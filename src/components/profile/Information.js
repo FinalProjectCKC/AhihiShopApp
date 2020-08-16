@@ -20,21 +20,20 @@ import {
 	arrayIsEmpty,
 	stringIsEmpty,
 } from "@dungdang/react-native-basic/src/Functions";
-import { data, userData } from "../../config/settings.js";
+import { userData } from "../../config/settings.js";
 export default class Information extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			editable: false,
-			hoten: "",
+			hoten: userData.fullname,
 			noiCap: "",
-			sdt: "",
-			diaChi: "",
-			email: "",
+			sdt: userData.phone,
+			diaChi: userData.address,
+			email: userData.email,
 			alert: null,
 		};
 	}
-
 	componentDidUpdate() {
 		if (this.state.alert !== null)
 			Alert.alert(
@@ -280,7 +279,7 @@ const styles = StyleSheet.create({
 	buttonView: {
 		width: "90%",
 		height: Sizes.s100,
-		marginTop: screen.height - Sizes.s340*3.2,
+		marginTop: screen.height - Sizes.s340 * 3.2,
 		alignItems: "center",
 		justifyContent: "center",
 		backgroundColor: "red",

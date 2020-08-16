@@ -236,7 +236,7 @@ const TAB = createAppContainer(AppNavigator)
 const RootStack = createStackNavigator(
   {
     Init: {
-      screen: WelcomeScreen,
+      screen: TAB,
     },
     Login: {
       screen: LoginContainer,

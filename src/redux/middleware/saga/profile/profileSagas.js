@@ -21,6 +21,7 @@ function* getUserDataFlow() {
   try {
     const response = yield getUserDataApi()
     if (response != undefined && !objectIsNull(response)) {
+      console.log("asdfadsf", response)
       if (response.status == 1) {
         yield put({ type: GET_USER_DATA_SUCCESS, response })
       } else {

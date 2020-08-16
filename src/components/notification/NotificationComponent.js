@@ -15,9 +15,15 @@ import Headers from "../custom/Headers";
 import { Sizes } from "@dungdang/react-native-basic";
 import { ScrollView } from "react-native-gesture-handler";
 import Loading from "../custom/Loading";
+import {userData} from "../../config/settings";
 import Images from "../../res/images/index";
 
 export default class NotificationComponent extends React.Component {
+  componentWillMount(){
+    if(userData.token == ""){
+      this.props.navigation.replace("Login")
+    }
+  }
   render() {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff"}}>

@@ -105,6 +105,13 @@ const Images = {
   ic_send: require("./ic_send.png"),
   ic_settings: require("./ic_settings.png"),
 
+  ic_status0: require("./ic_status0.png"),
+  ic_status1: require("./ic_status1.png"),
+  ic_status2: require("./ic_status2.png"),
+  ic_status3: require("./ic_status3.png"),
+  ic_status4: require("./ic_status4.png"),
+  ic_status5: require("./ic_status5.png"),
+
   ic_tag: require("./ic_tag.png"),
   ic_thongKe: require("./ic_thongKe.png"),
   ic_traCuuTTHC: require("./ic_traCuuTTHC.png"),

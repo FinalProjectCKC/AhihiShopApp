@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
+import {userData} from "../../config/settings";
 import CartComponent from '../../components/cart/CartComponent'
 import { removeFormCartAction, addToCartAction, getcartAction, createOrderAction, changeQuanAction } from '../../redux/actions/cart/CartActions'
 
 class CartContainer extends React.Component {
-    componentDidMount() {
-        this.props.getcartAction()
-    }
+    componentWillMount(){
+        if(userData.token == ""){
+          this.props.navigation.replace("Login")
+        } else{
+            this.props.getcartAction()
+        }
+      }
     render() {
         return <CartComponent {...this.props} />;
     }

@@ -2,11 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import Information from "../../components/profile/Information";
-// import {
-// 	postInformation,
-// 	clearInformation,
-// } from "../../redux/actions/profiles/informationActions";
-// import { getProfiles } from "../../redux/actions/profiles/profilesActions";
+import { getUserDataAction } from "../../redux/actions/profile/ProfileActions";
 import { objectIsNull } from "@dungdang/react-native-basic/src/Functions";
 class InformationContainer extends React.Component {
 	componentDidUpdate() {}

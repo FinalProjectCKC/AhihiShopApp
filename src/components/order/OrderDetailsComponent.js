@@ -124,6 +124,11 @@ export default class OrderDetailsComponent extends React.Component {
             this.props.navigation.goBack();
           }}
         />
+        {/* \ <Image
+              style={styles.image}
+              source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
+            /> */}
+
         {this.state.orderDetails.length === 0 ?
           <View style={{
             // borderTopWidth: 1,
@@ -171,6 +176,22 @@ export default class OrderDetailsComponent extends React.Component {
                 </View>
               </View>
               <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", marginTop: Sizes.s20, marginLeft: Sizes.s20, }}>Tình trạng đơn hàng</Text>
+              {(this.state.status == 0) ? <View><Image
+                style={styles.imageStt}
+                source={Images.ic_status0}
+              /></View> :
+                (this.state.status == 1) ? <View style={styles.imgStatus}><Image
+                  style={styles.imageStt}
+                  source={Images.ic_status1}
+                /></View> :
+                  (this.state.status == 2) ? <View style={styles.imgStatus}><Image
+                    style={styles.imageStt}
+                    source={Images.ic_status2}
+                  /></View> :
+                    (this.state.status == 3) ? <View style={styles.imgStatus}><Image
+                      style={styles.imageStt}
+                      source={Images.ic_status3}
+                    /></View> : null}
               <View>
 
               </View>
@@ -309,6 +330,17 @@ const styles = StyleSheet.create({
     // marginBottom: Sizes.s10,
     // backgroundColor:"red",
     borderColor: "#EFEFEF",
+  },
+  imgStatus: {
+    width: "100%",
+
+  },
+  imageStt: {
+    width: "90%",
+    marginLeft: Sizes.s30,
+    // marginRight: Sizes.s20,
+    height: Sizes.s200,
+    resizeMode: 'contain',
   },
   title: {
     flex: 8,

@@ -11,7 +11,8 @@ import {
   Modal,
   Platform,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
+  Alert
 } from "react-native"
 import { StyleSheet, Dimensions, StatusBar } from "react-native"
 import {
@@ -27,6 +28,23 @@ import IconA from "react-native-vector-icons/AntDesign";
 import { userData } from "../../config/settings";
 
 export default class ProfileCoponent extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.error !== prevProps.error && this.props.error !== null) {
+      Alert.alert(
+        "Lỗi",
+        this.props.error,
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false }
+      );
+    }
+    if (this.props.userData !== prevProps.userData && this.props.error == null && this.props.userData !== null) {
+      //address avatarUrl fullName phone
+      userData.address = this.props.userData.address
+      userData.email = this.props.userData.email
+      userData.fullName = this.props.userData.fullName
+      userData.phone = this.props.userData.phone
+    }
+  }
   render() {
     const ToucAble = [{
       title: "Thông tin tài khoản",
@@ -51,7 +69,7 @@ export default class ProfileCoponent extends React.Component {
     ]
     return (
       <SafeAreaView >
-         <Headers
+        <Headers
           name="canhbao"
           title="Thông tin tài khoản"
           onPressBackButton={() => {

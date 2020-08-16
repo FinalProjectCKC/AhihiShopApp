@@ -11,6 +11,7 @@ import {
   SafeAreaView
 } from "react-native";
 import Headers from "../custom/Headers";
+import { userData } from "../../config/settings";
 import { Sizes } from "@dungdang/react-native-basic";
 import { ScrollView } from "react-native-gesture-handler";
 import Loading from "../custom/Loading";

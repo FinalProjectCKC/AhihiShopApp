@@ -12,6 +12,7 @@ import {
   Modal,
   SafeAreaView
 } from "react-native";
+import { userData } from "../../config/settings";
 import Headers from "../custom/Headers";
 import { Sizes } from "@dungdang/react-native-basic";
 import { ScrollView } from "react-native-gesture-handler";
@@ -194,14 +195,14 @@ export default class productData extends React.Component {
                   onChangeText={(text) => {
                     this.setState({ orderQuan: text });
                   }}
-                  keyboardType = 'numeric'
+                  keyboardType='numeric'
                   value={this.state.orderQuan}
                   defaultValue={this.state.orderQuan}
                 >{this.state.orderQuan}</TextInput>
               </View>
               <TouchableOpacity
                 style={styles.btn_IDcrement}
-                disabled ={(this.state.orderQuan >= this.state.quan)}
+                disabled={(this.state.orderQuan >= this.state.quan)}
                 onPress={() => {
                   this.setState({
                     orderQuan: ++this.state.orderQuan
@@ -227,23 +228,27 @@ export default class productData extends React.Component {
           </View>
         </ScrollView>
         <View style={styles.buttonView}>
-              <TouchableOpacity
-                style={styles.editBtn}
-                onPress={() => {
-                  this.props.addToCartAction({ productId, quan: orderQuan })
-                  this.setState({ showModal: true })
-                }}
-                underlayColor="rgb(255, 255, 255)"
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <View style={{ flexDirection: "row" }}>
-                    {/* <Image
+          <TouchableOpacity
+            style={styles.editBtn}
+            onPress={() => {
+              if (userData.token == "") {
+                this.props.navigation.replace("Login")
+              } else {
+                this.props.addToCartAction({ productId, quan: orderQuan })
+                this.setState({ showModal: true })
+              }
+            }}
+            underlayColor="rgb(255, 255, 255)"
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                {/* <Image
 										source={Images.ic_changpassword}
 										style={{
 											width: Sizes.s50,
@@ -251,21 +256,21 @@ export default class productData extends React.Component {
 											resizeMode: "contain",
 										}}
 									/> */}
-                    <Text
-                      style={{
-                        fontWeight: "bold",
-                        fontSize: Sizes.s35,
-                        color: "white",
-                        marginLeft: Sizes.s20,
-                      }}
-                    >
-                      Thêm Vào Giỏ Hàng
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: Sizes.s35,
+                    color: "white",
+                    marginLeft: Sizes.s20,
+                  }}
+                >
+                  Thêm Vào Giỏ Hàng
 								</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
+              </View>
             </View>
-         
+          </TouchableOpacity>
+        </View>
+
         {/* <TouchableOpacity style={styles.bottomButton} onPress={() => {
           this.props.addToCartAction({ productId, quan: orderQuan })
           this.setState({ showModal: true })
