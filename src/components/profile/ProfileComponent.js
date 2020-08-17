@@ -90,7 +90,7 @@ export default class ProfileCoponent extends React.Component {
             </View>
             <View style={styles.infor}>
               <Text style={styles.text2}>
-                {(userData.fullname !== "")  ? userData.fullname : userData.username}
+                {(userData.fullname != "")  ? userData.fullname : userData.username}
                     </Text>
               <Text style={styles.text3}>
               {(userData.phone !== "")  ? userData.phone : null}
