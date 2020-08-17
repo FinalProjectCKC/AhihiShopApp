@@ -57,7 +57,7 @@ export default class IconMenu extends React.Component {
 					<TouchableOpacity
 						style={styles.touch}
 						onPress={() => {
-							this.props.navigation.navigate(`${screenNavigate}`, { itemParams });
+							this.props.navigation.navigate(`${screenNavigate}`, { 'itemParams' :itemParams, 'ProTypeId':itemParams });
 						}}
 						underlayColor="rgb(255, 255, 255)"
 					>

@@ -6,7 +6,7 @@ export const isPhone = screen.height / screen.width > 1.5 ? true : false
 export var userData = {
   admin: false,
   token: "",
-  username: "Asssss",
+  username: "a",
   fullname: "",
   password: "a",
   email: "",

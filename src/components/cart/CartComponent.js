@@ -54,10 +54,10 @@ export default class CartComponent extends React.Component {
     ) {
       this.props.getcartAction()
     }
-    if (preProps.error1 != this.props.error1 && this.props.error1 != null) {
+    if (preProps.error1 !== this.props.error1 && this.props.error1 !== null) {
       Alert.alert(
         "Thông báo",
-        `${this.props.error}`,
+        `${this.props.error1}`,
         [
           {
             text: "OK",

@@ -130,7 +130,7 @@ export default class ListOrderComponent extends React.Component {
                 fontFamily: 'Roboto-Regular',
                 fontSize: Sizes.s35,
                 color: '#ABAAAC'
-              }}>Bạn không có thông đơn hàng nào</Text>
+              }}>Bạn không có đơn hàng nào</Text>
             </View> :
             <View style={styles.new}>
               <FlatList
