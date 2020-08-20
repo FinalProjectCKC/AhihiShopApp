@@ -175,6 +175,7 @@ class Item extends React.Component {
     let product = ""
     if (orderDetails !== null && orderDetails.length !== 0) {
       img = "http://127.0.0.1:8080/" + orderDetails[0].productImg
+      img = "https://warm-brook-93118.herokuapp.com/" + orderDetails[0].productImg
       let quan = parseInt(orderDetails.length) - 1
       if (quan > 0) {
         product = orderDetails[0].productName + " và " + quan + " sản phẩm khác"

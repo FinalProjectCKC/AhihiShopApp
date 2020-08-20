@@ -1,8 +1,11 @@
-export const API = "http://127.0.0.1:8080/api"
+// export const API = "http://127.0.0.1:8080/api"
+export const API = "https://warm-brook-93118.herokuapp.com/api"
 
 export const API_URL = {
   login: API + "/login",
   register: API + "/register",
+
+  search: API + "/Product/Search",
 
   getAllProductType: API + "/ProductType/GetAll",
   searchProductType: API + "/ProductType/GetByName",

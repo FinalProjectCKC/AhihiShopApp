@@ -68,3 +68,24 @@ export function detailProductApi(input) {
       return { status: -1, message: errorServerFail };
     });
 }
+export function searchApi(input) {
+  return fetch(API_URL.search, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // Authorization: `Bearer ${userData.token}`,
+    },
+    body: JSON.stringify({
+      searchKey: input.searchKey,
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      return { status: -1, message: errorServerFail };
+    });
+}

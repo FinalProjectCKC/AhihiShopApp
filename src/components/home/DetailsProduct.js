@@ -157,7 +157,8 @@ export default class productData extends React.Component {
           <View>
             <Image
               style={styles.image}
-              source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
+              // source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
+              source={{ uri: `https://warm-brook-93118.herokuapp.com/${productImg}` }}
             />
             <View style={styles.time}>
               <Text style={styles.title}>{productName}</Text>

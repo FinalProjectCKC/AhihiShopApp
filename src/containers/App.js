@@ -17,6 +17,7 @@ import RegisContainer from '../containers/login/RegisContainer'
 import HomeContainer from '../containers/home/HomeContainer'
 import ListProductTypeContainer from '../containers/home/ListProductTypeContainer'
 import DetailsProductContainer from '../containers/home/DetailsProductContainer'
+import ListProductContainer22 from '../containers/home/ListProductContainer22'
 import ListProductContainer from '../containers/home/ListProductContainer'
 
 import CartContainer from './cart/CartContainer'
@@ -249,6 +250,9 @@ const RootStack = createStackNavigator(
     },
     ListProductContainer: {
       screen: ListProductContainer,
+    },
+    ListProductContainer22: {
+      screen: ListProductContainer22,
     },
     InfoShippingContainer: {
       screen: InfoShippingContainer,

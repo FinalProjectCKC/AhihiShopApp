@@ -30,6 +30,7 @@ export default class Home extends React.Component {
     super(props)
     this.state = {
       indexSlide: 0,
+      searchKey: "",
       listImage: [
         {
           title: ' ',
@@ -114,28 +115,26 @@ export default class Home extends React.Component {
                 color: "#000000",
               }}
               onChangeText={(text) => {
-                // this.setState(
-                // 	{
-                // 		warningList: [],
-                // 		page: 1,
-                // 		limit: 10,
-                // 		searchText: text,
-                // 	},
-                // 	() => {
-                // 		this.loadData();
-                // 	}
-                // );
+                this.setState(
+                  {
+                    searchKey: text,
+                  }
+                );
               }
               }
             />
-            <Image
-              source={Images.ic_search}
-              style={{
-                height: Sizes.s40,
-                width: Sizes.s40,
-                // marginHorizontal: Sizes.s20,
-              }}
-            />
+            <TouchableOpacity onPress={() => {
+              if (this.state.searchKey != "") {
+                this.props.navigation.navigate("ListProductContainer22", { searchKey: this.state.searchKey })
+              }
+            }}><Image
+                source={Images.ic_search}
+                style={{
+                  height: Sizes.s40,
+                  width: Sizes.s40,
+                  // marginHorizontal: Sizes.s20,
+                }}
+              /></TouchableOpacity>
           </View>
         </View>
         <View style={styles.header}>
@@ -156,15 +155,15 @@ export default class Home extends React.Component {
         <HomeScrollItem
           {...this.props}
           listType={this.props.listProTypeData}
-          itemTitle={"Giảm giá đặc biệt"}
+          itemTitle={"Sản phẩm ưa thích"}
           naviSeeMore=""
         />
-        <HomeScrollItem
+        {/* <HomeScrollItem
           {...this.props}
           listType={this.props.listProTypeData}
           itemTitle={"Gợi ý cho bạn"}
           naviSeeMore=""
-        />
+        /> */}
       </ScrollView>
     );
   }

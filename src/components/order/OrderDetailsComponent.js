@@ -301,7 +301,9 @@ class Item extends React.Component {
           <View style={{ margin: 5, flexDirection: "row" }}>
             <Image
               style={styles.image}
-              source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
+              // source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
+      source={{ uri: `https://warm-brook-93118.herokuapp.com/${productImg}` }}
+
             />
             <View style={{ marginTop: Sizes.s45, marginLeft: Sizes.s45, width: screen.width - Sizes.s200, }}>
               <View style={{ flexDirection: "row", width: "100%" }}>

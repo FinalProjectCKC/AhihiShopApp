@@ -9,14 +9,19 @@ import {
 
   GET_LIST_PRODUCT_TYPE,
   GET_LIST_PRODUCT_TYPE_ERROR,
-  GET_LIST_PRODUCT_TYPE_SUCCESS
+  GET_LIST_PRODUCT_TYPE_SUCCESS,
+
+  SEARCH_PRODUCT,
+  SEARCH_PRODUCT_ERROR,
+  SEARCH_PRODUCT_SUCCESS
 } from '../../../actions/home/HomeActions';
 
 import { call, takeEvery, put } from 'redux-saga/effects';
 import { objectIsNull } from '@dungdang/react-native-basic/src/Functions';
 import {
   detailProductApi,
-  listProTypeApi, listProductByTypeApi
+  listProTypeApi, listProductByTypeApi,
+  searchApi
 } from '../../api/home/HomeApi'
 
 const errorRes = "Không lấy được dữ liệu"
@@ -69,6 +74,22 @@ function* listProductByTypeFlow(action) {
     yield put({ type: GET_LIST_PRODUCT_BY_TYPE_ERROR, error: error })
   }
 }
+function* searchFlow(action) {
+  try {
+    const response = yield searchApi(action.data)
+    if (response != undefined && !objectIsNull(response)) {
+      if (response.status == 1) {
+        yield put({ type: SEARCH_PRODUCT_SUCCESS, response })
+      } else {
+        yield put({ type: SEARCH_PRODUCT_ERROR, error: response.message })
+      }
+    } else {
+      yield put({ type: SEARCH_PRODUCT_ERROR, error: errorRes })
+    }
+  } catch (error) {
+    yield put({ type: SEARCH_PRODUCT_ERROR, error: error })
+  }
+}
 export function* watchListProType() {
   yield takeEvery(GET_LIST_PRODUCT_TYPE, listProTypeFlow);
 }
@@ -77,4 +98,7 @@ export function* watchListProductByType() {
 }
 export function* watchDetailProduct() {
   yield takeEvery(GET_DETAILS_PRODUCT, detailProductFlow);
+}
+export function* watchSearch() {
+  yield takeEvery(SEARCH_PRODUCT, searchFlow);
 }

@@ -10,7 +10,11 @@ import {
 
   GET_DETAILS_PRODUCT_SUCCESS,
   GET_DETAILS_PRODUCT_ERROR,
-  GET_DETAILS_PRODUCT
+  GET_DETAILS_PRODUCT,
+
+  SEARCH_PRODUCT,
+  SEARCH_PRODUCT_ERROR,
+  SEARCH_PRODUCT_SUCCESS
 } from '../../actions/home/HomeActions';
 import { userData } from '../../../config/settings';
 
@@ -35,7 +39,8 @@ const getListTypeReducers = (state = initialState, action) => {
 
         let newProType = {
           imgUrl: "",
-          imgUri: "http://127.0.0.1:8080/" + protype.typeImg,
+      imgUri: "https://warm-brook-93118.herokuapp.com/" + protype.typeImg,
+          // imgUri: "http://127.0.0.1:8080/" + protype.typeImg,
           iconTitle: protype.typeName,
           itemParams: protype._id,
           screenNavigate: "ListProductContainer",
@@ -111,4 +116,30 @@ const getDetailsProductReducers = (state = initialState, action) => {
       return state;
   }
 };
-export { getListTypeReducers, getListProductByTypeReducers, getDetailsProductReducers };
+const searchReducers = (state = initialState, action) => {
+  switch (action.type) {
+    case SEARCH_PRODUCT:
+      return Object.assign({}, state, {
+        loading: true,
+        data: null,
+        error: null
+      });
+
+    case SEARCH_PRODUCT_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        data: action.response.data,
+        error: null
+      });
+
+    case SEARCH_PRODUCT_ERROR:
+      return Object.assign({}, state, {
+        loading: false,
+        data: null,
+        error: action.error
+      });
+    default:
+      return state;
+  }
+};
+export { getListTypeReducers, getListProductByTypeReducers, getDetailsProductReducers, searchReducers };

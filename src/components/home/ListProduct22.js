@@ -18,33 +18,31 @@ import Loading from "../custom/Loading";
 import SearchBar from "../custom/formItem/SearchBar";
 import Images from "../../res/images/index";
 
-export default class ListProduct extends React.Component {
+export default class ListProduct22 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       ListProduct: [],
       page: 1,
       limit: 4,
-      typeImg: "",
-      description: "",
       searchText: null,
-      searchKey: "",
       list: [],
       tieuDe: "",
       header: "",
-      ProTypeId: "",
+      // ProTypeId: "",
     };
   }
   componentDidMount() {
     this.loadListProduct();
   }
   loadListProduct() {
-    this.props.getListProductByTypeAction({
-      ProTypeId: this.state.ProTypeId,
-      page: this.state.page,
-      limit: this.state.limit,
-      // tieuDe: this.state.tieuDe,
-    });
+    console.log('ahihi')
+    // this.props.getListProductByTypeAction({
+    //   ProTypeId: this.state.ProTypeId,
+    //   page: this.state.page,
+    //   limit: this.state.limit,
+    //   // tieuDe: this.state.tieuDe,
+    // });
   }
   loadMore() {
     this.setState(
@@ -94,11 +92,10 @@ export default class ListProduct extends React.Component {
     ) {
       this.setState(
         {
-          ListProduct: this.state.ListProduct.concat(this.props.listProductData.product),
-          header: this.props.listProductData.typeName,
-          typeImg: this.props.listProductData.typeImg,
-          description: this.props.listProductData.description,
-          ProTypeId: this.props.listProductData.typeId,
+          ListProduct: this.state.ListProduct.concat(this.props.listProductData),
+          header: "Tìm thấy " + this.props.listProductData.length + " sản phẩm",
+          // description: this.props.listProductData.description,
+          // ProTypeId: this.props.listProductData.typeId,
         },
         () => {
           this.getUnique(this.state.ListProduct, '_id')
@@ -110,11 +107,13 @@ export default class ListProduct extends React.Component {
     }
   }
   loadData() {
-    this.props.getListProductByTypeAction({
-      ProTypeId: this.state.ProTypeId,
-      page: this.state.page,
-      limit: this.state.limit,
-    });
+    // this.props.getListProductByTypeAction({
+    //   ProTypeId: this.state.ProTypeId,
+    //   page: this.state.page,
+    //   limit: this.state.limit,
+    // });
+    console.log('ahihi')
+
   }
   loadMore() {
     this.setState(
@@ -122,17 +121,18 @@ export default class ListProduct extends React.Component {
         page: ++this.state.page,
       },
       () => {
-        this.props.getListProductByTypeAction({
-          ProTypeId: this.state.ProTypeId,
-          page: this.state.page,
-          limit: this.state.limit,
-        });
+    console.log('ahihi')
+
+        // this.props.getListProductByTypeAction({
+        //   ProTypeId: this.state.ProTypeId,
+        //   page: this.state.page,
+        //   limit: this.state.limit,
+        // });
       }
     );
   }
   render() {
     const { navigation } = this.props;
-    const { typeImg, description } = this.state
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFF" }}>
         {this.props.loading && <Loading backgroundColor={"none"} />}
@@ -157,18 +157,14 @@ export default class ListProduct extends React.Component {
                   borderRadius: Sizes.s10,
                 }}
               >
-                <TouchableOpacity onPress={() => {
-              if (this.state.searchKey != "") {
-                this.props.navigation.navigate("ListProductContainer22", { searchKey: this.state.searchKey })
-              }
-            }}><Image
-                source={Images.ic_search}
-                style={{
-                  height: Sizes.s40,
-                  width: Sizes.s40,
-                  // marginHorizontal: Sizes.s20,
-                }}
-              /></TouchableOpacity>
+                <Image
+                  source={Images.ic_search}
+                  style={{
+                    height: Sizes.s40,
+                    width: Sizes.s40,
+                    marginHorizontal: Sizes.s20,
+                  }}
+                />
 
                 <TextInput
                   placeholder="Tìm kiếm"
@@ -186,7 +182,6 @@ export default class ListProduct extends React.Component {
                         ListProduct: [],
                         page: 1,
                         limit: 5,
-                        searchKey: text,
                         searchText: text,
                       },
                       () => {

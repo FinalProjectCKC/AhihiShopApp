@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import Home from '../../components/home/Home'
-import { getListProTypeAction } from '../../redux/actions/home/HomeActions'
+import { getListProTypeAction, searchProductAction } from '../../redux/actions/home/HomeActions'
 
 class HomeContainer extends React.Component {
     componentDidMount() {
@@ -21,6 +21,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getListProTypeAction: (input) => {
             dispatch(getListProTypeAction(input))
+        },
+        searchProductAction: (input) => {
+            dispatch(searchProductAction(input))
         },
     };
 }
