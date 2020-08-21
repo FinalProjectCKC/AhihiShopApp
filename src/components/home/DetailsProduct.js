@@ -10,7 +10,7 @@ import {
   TextInput,
   Alert,
   Modal,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 import { userData } from "../../config/settings";
 import Headers from "../custom/Headers";
@@ -43,18 +43,16 @@ export default class productData extends React.Component {
       this.props.error === null &&
       this.props.productData != null
     ) {
-      this.setState(
-        {
-          productData: this.props.productData,
-          productName: this.props.productData.productName,
-          productImg: this.props.productData.productImg,
-          quan: this.props.productData.quan,
-          productId: this.props.productData._id,
-          price: this.props.productData.price,
-          description: this.props.productData.description,
-          unit: this.props.productData.unit,
-        },
-      );
+      this.setState({
+        productData: this.props.productData,
+        productName: this.props.productData.productName,
+        productImg: this.props.productData.productImg,
+        quan: this.props.productData.quan,
+        productId: this.props.productData._id,
+        price: this.props.productData.price,
+        description: this.props.productData.description,
+        unit: this.props.productData.unit,
+      });
     }
     if (
       preProps.dataAddToCart != this.props.dataAddToCart &&
@@ -67,8 +65,7 @@ export default class productData extends React.Component {
         [
           {
             text: "Tiếp tục mua sắm",
-            onPress: () =>
-              console.log("OK Pressed"),
+            onPress: () => console.log("OK Pressed"),
           },
         ],
         { cancelable: false }
@@ -81,8 +78,7 @@ export default class productData extends React.Component {
         [
           {
             text: "OK",
-            onPress: () =>
-              console.log("OK Pressed"),
+            onPress: () => console.log("OK Pressed"),
           },
         ],
         { cancelable: false }
@@ -95,8 +91,7 @@ export default class productData extends React.Component {
         [
           {
             text: "OK",
-            onPress: () =>
-              console.log("OK Pressed"),
+            onPress: () => console.log("OK Pressed"),
           },
         ],
         { cancelable: false }
@@ -118,28 +113,37 @@ export default class productData extends React.Component {
     const Table = [
       {
         key: "Kho",
-        value: `${this.state.quan}`
+        value: `${this.state.quan}`,
       },
       {
         key: "Thương hiệu",
-        value: "Made in China"
+        value: "Made in China",
       },
       {
         key: "Loại",
-        value: "Áo khoác"
+        value: "Áo khoác",
       },
       {
         key: "Chất liệu",
-        value: "inox"
+        value: "inox",
       },
       {
         key: "Xuất xứ",
-        value: "Tung Của"
+        value: "Tung Của",
       },
-    ]
-    const ProductSize = ["XL", "L", "M", "S"]
+    ];
+    const ProductSize = ["XL", "L", "M", "S"];
     const { navigation } = this.props;
-    const { productData, productName, productImg, quan, price, description, orderQuan, productId } = this.state;
+    const {
+      productData,
+      productName,
+      productImg,
+      quan,
+      price,
+      description,
+      orderQuan,
+      productId,
+    } = this.state;
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFF" }}>
         {this.props.loading && <Loading backgroundColor={"none"} />}
@@ -149,75 +153,107 @@ export default class productData extends React.Component {
           onPressBackButton={() => {
             this.props.navigation.goBack();
           }}
-          onPressCartButton={()=>{
-            this.props.navigation.navigate('CartContainer')
+          onPressCartButton={() => {
+            this.props.navigation.navigate("CartContainer");
           }}
         />
-        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={styles.container}
+          showsVerticalScrollIndicator={false}
+        >
           <View>
             <Image
               style={styles.image}
               // source={{ uri: `http://127.0.0.1:8080/${productImg}` }}
-              source={{ uri: `https://warm-brook-93118.herokuapp.com/${productImg}` }}
+              source={{
+                uri: `https://warm-brook-93118.herokuapp.com/${productImg}`,
+              }}
             />
             <View style={styles.time}>
               <Text style={styles.title}>{productName}</Text>
               <Text style={styles.textPrice}>Giá: {price} VND</Text>
+              <Text style={styles.textPrice}>Mô Tả: {description}</Text>
             </View>
-            <View style={{ marginLeft: Sizes.s25, flexDirection: "row", }}>
+            <View style={{ marginLeft: Sizes.s25, flexDirection: "row" }}>
               {ProductSize.map((item) => (
                 <TouchableOpacity
                   style={this.proSizeStyle(item)}
                   onPress={() => {
                     this.proSizePress(item);
-                  }}>
-                  <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", }}>{item}</Text>
+                  }}
+                >
+                  <Text style={{ fontSize: Sizes.s35, fontWeight: "bold" }}>
+                    {item}
+                  </Text>
                 </TouchableOpacity>
               ))}
             </View>
-            <View style={{ marginLeft: Sizes.s25, marginTop: Sizes.s25, flexDirection: "row", }}>
+            <View
+              style={{
+                marginLeft: Sizes.s25,
+                marginTop: Sizes.s25,
+                flexDirection: "row",
+              }}
+            >
               <TouchableOpacity
                 style={styles.btn_IDcrement}
-                disabled={(this.state.orderQuan < 2)}
+                disabled={this.state.orderQuan < 2}
                 onPress={() => {
                   this.setState({
-                    orderQuan: --this.state.orderQuan
-                  })
-                }}>
-                <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", }}>-</Text>
+                    orderQuan: --this.state.orderQuan,
+                  });
+                }}
+              >
+                <Text style={{ fontSize: Sizes.s35, fontWeight: "bold" }}>
+                  -
+                </Text>
               </TouchableOpacity>
-              <View style={{
-                justifyContent: "center",
-                alignContent: "center",
-                alignItems: "center",
-                borderWidth: 1,
-                height: Sizes.s75,
-                borderColor: "black",
-              }}>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignContent: "center",
+                  alignItems: "center",
+                  borderWidth: 1,
+                  height: Sizes.s75,
+                  borderColor: "black",
+                }}
+              >
                 <TextInput
                   style={styles.orderQuan}
                   onChangeText={(text) => {
                     this.setState({ orderQuan: text });
                   }}
-                  keyboardType='numeric'
+                  keyboardType="numeric"
                   value={this.state.orderQuan}
                   defaultValue={this.state.orderQuan}
-                >{this.state.orderQuan}</TextInput>
+                >
+                  {this.state.orderQuan}
+                </TextInput>
               </View>
               <TouchableOpacity
                 style={styles.btn_IDcrement}
-                disabled={(this.state.orderQuan >= this.state.quan)}
+                disabled={this.state.orderQuan >= this.state.quan}
                 onPress={() => {
                   this.setState({
-                    orderQuan: ++this.state.orderQuan
-                  })
+                    orderQuan: ++this.state.orderQuan,
+                  });
                 }}
               >
-                <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", }}>+</Text>
+                <Text style={{ fontSize: Sizes.s35, fontWeight: "bold" }}>
+                  +
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={{ marginTop: Sizes.s20 }}>
-              <Text style={{ fontSize: Sizes.s35, fontWeight: "bold", marginLeft: Sizes.s35 }}>Thông tin sản phẩm</Text>
+              <Text
+                style={{
+                  fontSize: Sizes.s35,
+                  fontWeight: "bold",
+                  marginLeft: Sizes.s35,
+                }}
+              >
+                Thông tin sản phẩm
+              </Text>
               {Table.map((item) => (
                 <View style={styles.table}>
                   <View style={styles.tableRow}>
@@ -236,10 +272,10 @@ export default class productData extends React.Component {
             style={styles.editBtn}
             onPress={() => {
               if (userData.token == "") {
-                this.props.navigation.replace("Login")
+                this.props.navigation.replace("Login");
               } else {
-                this.props.addToCartAction({ productId, quan: orderQuan })
-                this.setState({ showModal: true })
+                this.props.addToCartAction({ productId, quan: orderQuan });
+                this.setState({ showModal: true });
               }
             }}
             underlayColor="rgb(255, 255, 255)"
@@ -269,7 +305,7 @@ export default class productData extends React.Component {
                   }}
                 >
                   Thêm Vào Giỏ Hàng
-								</Text>
+                </Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -315,7 +351,7 @@ const styles = StyleSheet.create({
   textTable: {
     fontSize: Sizes.s35,
     // fontWeight: "bold",
-    fontFamily: 'Roboto',
+    fontFamily: "Roboto",
   },
   time: {
     marginLeft: Sizes.s35,
@@ -323,11 +359,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: Sizes.s55,
     fontWeight: "bold",
-    fontFamily: 'Roboto',
+    fontFamily: "Roboto",
   },
   image: {
     width: "100%",
-    height: (width + Sizes.s30),// * (360 / 640),
+    height: width + Sizes.s30, // * (360 / 640),
     alignItems: "center",
     // resizeMode: 'contain',
     marginVertical: Sizes.s20,
@@ -336,7 +372,7 @@ const styles = StyleSheet.create({
   addToCart: {
     fontSize: Sizes.s35,
     fontWeight: "bold",
-    fontFamily: 'Roboto',
+    fontFamily: "Roboto",
   },
   boxSizeChose: {
     borderWidth: 2,
@@ -363,7 +399,7 @@ const styles = StyleSheet.create({
     height: Sizes.s75,
     width: Sizes.s140,
     fontSize: Sizes.h30,
-    color: 'black'
+    color: "black",
   },
   btn_IDcrement: {
     borderWidth: 1,
